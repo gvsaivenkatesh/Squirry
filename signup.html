@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Squirry Fruit - Create Account</title>
+
+    <link
+        rel="stylesheet"
+        href="./frontend/css/signup-style.css"
+    >
+</head>
+
+<body>
+
+    <main class="signup-page">
+
+        <section class="signup-card">
+
+            <!-- Logo -->
+            <div class="signup-logo">
+                <img
+                    src="./frontend/assets/images/logo.jpeg"
+                    alt="Squirry Fruit Logo"
+                >
+            </div>
+
+
+            <!-- Heading -->
+            <div class="signup-heading">
+                <h1>Create Your Account</h1>
+
+                <p>
+                    Join Squirry Fruit and enjoy fresh & healthy life
+                </p>
+            </div>
+
+
+            <!-- Form -->
+            <form id="signupForm">
+
+
+                <!-- Full Name -->
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <div class="input-box">
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <!-- Mobile + Email -->
+                <div class="form-row">
+
+                    <!-- Mobile -->
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            Mobile Number
+                        </label>
+
+                        <div class="mobile-input">
+
+                            <span class="phone-icon">☎</span>
+
+                            <span class="country-code">
+                                +91
+                            </span>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                placeholder="Enter your mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            aria-label="Show confirm password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password Requirements -->
+                <div class="password-rules">
+
+                    
+
+
+                </div>
+
+
+                <!-- Terms -->
+                <div class="terms-row">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        name="terms"
+                        required
+                    >
+
+                    <label for="terms">
+                        I agree to the
+                        <a href="#">
+                            Terms & Conditions
+                        </a>
+                        and
+                        <a href="#">
+                            Privacy Policy
+                        </a>
+                    </label>
+
+                </div>
+
+
+                <!-- Create Account -->
+                <button
+                    type="submit"
+                    class="create-account-btn"
+                >
+                    <span>
+                        CREATE ACCOUNT
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+                </button>
+
+
+                <!-- Divider -->
+                <div class="divider">
+
+                    
+
+                </div>
+
+
+                
+
+
+                <!-- Login -->
+                <div class="login-link">
+
+                    Already have an account?
+
+                    <a href="./login.html">
+                        Login
+                    </a>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="./frontend/js/signup.js"></script>
+
+</body>
+
+</html>

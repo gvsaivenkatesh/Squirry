@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Squirry - Login</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Login CSS -->
+    <link
+        rel="stylesheet"
+        href="frontend/css/login-style.css"
+    >
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <!-- ===================================
+             LEFT PROMOTIONAL SECTION
+        ==================================== -->
+        <section class="promo-section">
+
+            <img
+                src="frontend/assets/images/hero.jpeg"
+                alt="Squirry Grocery Delivery"
+                class="promo-image"
+            >
+
+        </section>
+
+
+        <!-- ===================================
+             RIGHT LOGIN SECTION
+        ==================================== -->
+        <section class="login-section">
+
+            <div class="login-card">
+
+
+                <!-- Logo -->
+                <div class="logo">
+
+                    <img
+                        src="frontend/assets/images/logo.jpeg"
+                        alt="Squirry Logo"
+                    >
+
+                </div>
+
+
+                <!-- Heading -->
+                <h1>Welcome Back!</h1>
+
+
+                <!-- Login Form -->
+                <form id="loginForm">
+
+
+                    <!-- Mobile Number -->
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            Mobile number
+                        </label>
+
+
+                        <div class="mobile-input">
+
+                            <span class="country-code">
+                                +91
+                            </span>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                placeholder="Enter mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                        >
+
+                    </div>
+
+
+                    <!-- Login -->
+                    <button
+                        type="submit"
+                        class="login-btn"
+                    >
+                        Login
+                    </button>
+
+
+                    <!-- Sign Up -->
+                    <button
+                        type="button"
+                        class="signup-btn"
+                    >
+                        Sign Up
+                    </button>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="frontend/js/login.js"></script>
+
+</body>
+
+</html>
