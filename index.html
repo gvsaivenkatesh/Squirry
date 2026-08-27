@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Squirry Food</title>
+
+    <!-- Your existing CSS -->
+   <link rel="stylesheet" href="./frontend/css/style.css">
+
+    <!-- Desktop/Laptop Redirect -->
+    <script>
+        if (window.innerWidth >= 1025) {
+            window.location.replace("./login.html");
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- =====================================
+         MOBILE + TABLET WELCOME SCREEN
+         Visible up to 1024px
+    ====================================== -->
+
+    <main class="welcome-page">
+
+        <div class="design-container">
+
+            <picture>
+                <img
+                    src="./frontend/assets/images/home-design.jpeg"
+                    alt="Squirry Food"
+                    class="design-image"
+                >
+            </picture>
+
+            <!-- GET STARTED -->
+            <a
+                href="./login.html"
+                class="get-started-btn"
+            >
+                <span>Get Started</span>
+                <span class="arrow">→</span>
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <script src="./frontend/js/app.js"></script>
+
+</body>
+</html>
