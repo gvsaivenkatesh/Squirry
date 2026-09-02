@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Squirry Fruit - Fresh Groceries Delivered Fast</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+/* ================================
+   ShopEasy Home Page - FIXED CSS
+   Save as: style.css
+================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+  background: #fff;
+  line-height: 1.4;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* HEADER */
+.main-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 95px;
+  margin: 0 auto;
+  padding: 14px 38px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  width: 220px;
+  min-width: 220px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: 62px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.delivery-location {
+  min-width: 230px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.delivery-location > i {
+  color: #ff6500;
+  font-size: 24px;
+}
+
+.delivery-location div {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-location small {
+  color: #555;
+  font-size: 12px;
+}
+
+.delivery-location strong {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.search-box {
+  height: 50px;
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 0 18px;
+  color: #333;
+  font-size: 16px;
+}
+
+.search-box button {
+  width: 58px;
+  flex: 0 0 58px;
+  border: 0;
+  background: #ff6500;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.header-action {
+  min-width: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-action > i,
+.cart-icon > i {
+  font-size: 24px;
+}
+
+.header-action span:last-child {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -9px;
+  right: -10px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #ff6500;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* NAVIGATION */
+.navigation {
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 55px;
+  margin: 0 auto;
+  padding: 0 38px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.nav-container a {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.nav-container a:hover,
+.nav-container a.active {
+  color: #ff6500;
+}
+
+.nav-container a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ff6500;
+}
+
+.all-categories {
+  min-width: 200px;
+  height: 45px;
+  border: 0;
+  border-radius: 8px;
+  background: #ff6500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* HERO */
+.hero-section {
+  width: calc(100% - 76px);
+  max-width: 1450px;
+  min-height: 315px;
+  margin: 18px auto;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(100deg, #fff3e7, #fffaf0);
+}
+
+.hero-content {
+  min-height: 315px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-text {
+  width: 43%;
+  padding-left: 7.5%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-label {
+  display: inline-block;
+  margin-bottom: 13px;
+  padding: 6px 12px;
+  border-radius: 18px;
+  background: #ffe7d3;
+  color: #ff6500;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hero-text h1 {
+  margin-bottom: 12px;
+  font-size: 42px;
+  line-height: 1.13;
+}
+
+.hero-text h1 span {
+  color: #ff6500;
+}
+
+.hero-text p {
+  margin-bottom: 19px;
+  color: #333;
+  font-size: 16px;
+}
+
+.primary-btn {
+  min-width: 168px;
+  height: 45px;
+  padding: 0 20px;
+  border-radius: 8px;
+  background: #ff6500;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hero-image {
+  width: 57%;
+  height: 315px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 315px;
+  object-fit: contain;
+}
+
+.discount-badge {
+  width: 105px;
+  height: 105px;
+  position: absolute;
+  top: 60px;
+  right: 55px;
+  border: 1.5px dashed #ff6500;
+  border-radius: 50%;
+  background: #fff;
+  color: #ff6500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.discount-badge small {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.discount-badge strong {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.discount-badge span {
+  font-size: 13px;
+  font-weight: 700;
+}
+/* BENEFITS */
+.benefits-section {
+  width: calc(100% - 76px);
+  max-width: 1450px;
+  min-height: 76px;
+  margin: 0 auto 20px;
+  border: 1px solid #eee;
+  border-radius: 13px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  border-right: 1px solid #eee;
+}
+
+.benefit:last-child {
+  border-right: 0;
+}
+
+.benefit > i {
+  color: #ff6500;
+  font-size: 29px;
+}
+
+.benefit div {
+  display: flex;
+  flex-direction: column;
+}
+
+.benefit strong {
+  font-size: 14px;
+}
+
+.benefit span {
+  color: #555;
+  font-size: 13px;
+}
+
+/* CONTENT */
+.content-section {
+  width: calc(100% - 76px);
+  max-width: 1400px;
+  margin: 25px auto 0;
+}
+
+.section-heading {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-heading h2 {
+  font-size: 21px;
+}
+
+.section-heading a {
+  color: #ff6500;
+  font-size: 13px;
+}
+
+/* CATEGORIES */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 14px;
+}
+
+.category-card {
+  min-height: 155px;
+  padding: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  border-color: #ffc6a1;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .07);
+}
+
+.category-card img {
+  width: 95px;
+  height: 85px;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+.category-card h3 {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* OFFERS */
+.offers-section {
+  margin-top: 25px;
+  padding-bottom: 35px;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.offer-card {
+  min-height: 145px;
+  padding: 15px 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.offer-content {
+  width: 58%;
+  position: relative;
+  z-index: 2;
+}
+
+.offer-content small,
+.offer-content strong,
+.offer-content span,
+.offer-content b {
+  display: block;
+}
+
+.offer-content small {
+  font-size: 12px;
+}
+
+.offer-content strong {
+  margin: 2px 0 4px;
+  font-size: 22px;
+}
+
+.offer-content span {
+  font-size: 12px;
+}
+
+.offer-content b {
+  margin-top: 15px;
+  font-size: 11px;
+}
+
+.offer-card img {
+  width: 55%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.offer-one { background: #fff0e7; }
+.offer-one strong { color: #e84f00; }
+
+.offer-two { background: #eaf7ec; }
+.offer-two strong { color: #15752c; }
+
+.offer-three { background: #eaf3ff; }
+.offer-three strong { color: #143d89; }
+
+.offer-four { background: #fff7dc; }
+.offer-four strong { color: #9a5a00; }
+
+/* TABLET */
+@media (max-width: 1199px) {
+  .header-container,
+  .nav-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .header-container {
+    gap: 15px;
+  }
+
+  
+  .logo {
+    width: 180px;
+    min-width: 180px;
+    height: 60px;
+  }
+
+  .brand-logo {
+    max-width: 180px;
+    height: 55px;
+  }
+
+  .delivery-location {
+    min-width: 180px;
+  
+}
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .nav-container {
+    gap: 20px;
+    overflow-x: auto;
+  }
+
+  .nav-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-section,
+  .benefits-section,
+  .content-section {
+    width: calc(100% - 48px);
+  }
+
+  .hero-text {
+    padding-left: 45px;
+  }
+
+  .hero-text h1 {
+    font-size: 35px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .header-container {
+    flex-wrap: wrap;
+  }
+
+  .delivery-location {
+    margin-left: auto;
+  }
+
+  .search-box {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .hero-content {
+    min-height: 285px;
+  }
+
+  .hero-text {
+    width: 48%;
+    padding-left: 35px;
+  }
+
+  .hero-text h1 {
+    font-size: 30px;
+  }
+
+  .hero-image {
+    width: 52%;
+    height: 285px;
+  }
+
+  .hero-image img {
+    height: 285px;
+  }
+
+  .discount-badge {
+    width: 85px;
+    height: 85px;
+    top: 40px;
+    right: 20px;
+  }
+
+  .discount-badge strong {
+    font-size: 23px;
+  }
+
+  .benefit {
+    gap: 8px;
+  }
+
+  .benefit > i {
+    font-size: 24px;
+  }
+
+  .benefit strong {
+    font-size: 12px;
+  }
+
+  .benefit span {
+    font-size: 10px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    width: 138px;
+    min-width: 138px;
+    height: 50px;
+  }
+
+  .brand-logo {
+    max-width: 138px;
+    height: 45px;
+  }
+
+  .delivery-location {
+    display: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  .header-action {
+    min-width: 40px;
+  }
+
+  .header-action > i,
+  .cart-icon > i {
+    font-size: 20px;
+  }
+
+  .header-action span:last-child {
+    font-size: 8px;
+  }
+
+  .search-box {
+    height: 44px;
+  }
+
+  .search-box input {
+    font-size: 13px;
+  }
+
+  .search-box button {
+    width: 48px;
+    flex-basis: 48px;
+  }
+
+  .nav-container {
+    padding: 0 15px;
+    gap: 20px;
+    overflow-x: auto;
+  }
+
+  .nav-container a {
+    height: 48px;
+    font-size: 11px;
+  }
+
+  .all-categories {
+    min-width: 140px;
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .hero-section {
+    width: calc(100% - 30px);
+    margin-top: 12px;
+    border-radius: 12px;
+  }
+
+  .hero-content {
+    min-height: 355px;
+    flex-direction: column;
+  }
+
+  .hero-text {
+    width: 100%;
+    padding: 23px 20px 0;
+  }
+
+  .hero-text h1 {
+    font-size: 27px;
+  }
+
+  .hero-text p {
+    font-size: 13px;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 175px;
+  }
+
+  .hero-image img {
+    width: 92%;
+    height: 175px;
+  }
+
+  .discount-badge {
+    width: 67px;
+    height: 67px;
+    top: 15px;
+    right: 10px;
+  }
+
+  .discount-badge strong {
+    font-size: 18px;
+  }
+
+  .discount-badge small {
+    font-size: 8px;
+  }
+
+  .discount-badge span {
+    font-size: 10px;
+  }
+
+  .benefits-section {
+    width: calc(100% - 30px);
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 20px;
+  }
+
+  .benefit {
+    min-height: 68px;
+    padding: 9px;
+    justify-content: flex-start;
+  }
+
+  .benefit:nth-child(2) {
+    border-right: 0;
+  }
+
+  .benefit:nth-child(-n+2) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .content-section {
+    width: calc(100% - 30px);
+  }
+
+  .section-heading h2 {
+    font-size: 18px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .category-card {
+    min-height: 140px;
+  }
+
+  .category-card img {
+    width: 80px;
+    height: 75px;
+  }
+
+  .category-card h3 {
+    font-size: 13px;
+  }
+
+  .offers-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .offer-card {
+    min-height: 130px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .logo {
+    width: 112px;
+    min-width: 112px;
+    height: 44px;
+  }
+
+  .brand-logo {
+    max-width: 112px;
+    height: 40px;
+  }
+
+  .header-action {
+    min-width: 35px;
+  }
+
+  .header-action > i,
+  .cart-icon > i {
+    font-size: 18px;
+  }
+
+  .hero-text h1 {
+    font-size: 24px;
+  }
+
+  .hero-content {
+    min-height: 340px;
+  }
+
+  .hero-image,
+  .hero-image img {
+    height: 165px;
+  }
+
+  .category-card {
+    min-height: 130px;
+  }
+
+  .category-card img {
+    width: 70px;
+    height: 65px;
+  }
+
+  .offer-content strong {
+    font-size: 19px;
+  }
+}
+  
+@media (max-width: 900px) {
+  .logo {
+    width: 160px;
+    min-width: 160px;
+    height: 55px;
+  }
+
+  .brand-logo {
+    max-width: 160px;
+    height: 50px;
+  }
+}
+
+
+/* =========================================
+   FINAL LAYOUT FIX
+========================================= */
+
+.hero-section {
+  position: relative;
+}
+
+.hero-image {
+  overflow: hidden;
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Slider indicators removed */
+.slider-dots,
+.hero-dots,
+.slider-dot,
+.hero-dot,
+.dot,
+.carousel-indicators {
+  display: none !important;
+}
+
+/* Category alignment */
+.categories-grid {
+  align-items: stretch;
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+/* Prevent any old slider artifacts over category cards */
+.category-card .slider-dots,
+.category-card .dot {
+  display: none !important;
+}
+
+
+/* =========================================================
+   FINAL HERO CLEAN FIX
+   - Removes separate hero text/button
+   - Uses the banner image as the full hero
+   - Removes duplicate 50% badge
+   - Removes slider dots
+========================================================= */
+
+.hero-section {
+  width: calc(100% - 76px);
+  max-width: 1450px;
+  min-height: 0;
+  margin: 18px auto 20px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff7ef;
+}
+
+.hero-content {
+  width: 100%;
+  min-height: 0;
+  display: block;
+}
+
+.hero-text,
+.discount-badge,
+.slider-dots,
+.hero-dots,
+.slider-dot,
+.hero-dot,
+.dot,
+.carousel-indicators {
+  display: none !important;
+}
+
+.hero-image {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  display: block !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-image img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  display: block;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 14px;
+}
+
+/* Small laptop */
+@media (max-width: 1199px) {
+  .hero-section {
+    width: calc(100% - 48px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .hero-section {
+    width: calc(100% - 30px);
+    margin-top: 12px;
+    border-radius: 12px;
+  }
+
+  .hero-image,
+  .hero-image img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .hero-section {
+    width: calc(100% - 20px);
+  }
+}
+
+
+/* =========================================================
+   MOBILE + TABLET BOTTOM NAVIGATION
+   Visible: 320px - 1024px
+   Hidden: 1025px+
+========================================================= */
+
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    padding-bottom: 78px;
+  }
+
+  .mobile-bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #ffffff;
+    border-top: 1px solid #e7e7e7;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+    z-index: 99999;
+  }
+
+  .mobile-bottom-nav .bottom-nav-item {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #333333;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .mobile-bottom-nav .bottom-nav-item.active {
+    color: #ff6500;
+    font-weight: 700;
+  }
+
+  .mobile-bottom-nav .bottom-nav-icon {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-bottom-nav .bottom-nav-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobile-bottom-nav .bottom-cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #ef3b4f;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    padding-bottom: 72px;
+  }
+
+  .mobile-bottom-nav {
+    height: 68px;
+  }
+
+  .mobile-bottom-nav .bottom-nav-item {
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .mobile-bottom-nav .bottom-nav-icon,
+  .mobile-bottom-nav .bottom-nav-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  body {
+    padding-bottom: 68px;
+  }
+
+  .mobile-bottom-nav {
+    height: 64px;
+  }
+
+  .mobile-bottom-nav .bottom-nav-item {
+    font-size: 11px;
+  }
+
+  .mobile-bottom-nav .bottom-nav-icon,
+  .mobile-bottom-nav .bottom-nav-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .mobile-bottom-nav {
+    height: 76px;
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+
+  .mobile-bottom-nav .bottom-nav-item {
+    max-width: 130px;
+    font-size: 13px;
+  }
+
+  .mobile-bottom-nav .bottom-nav-icon,
+  .mobile-bottom-nav .bottom-nav-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  body {
+    padding-bottom: 0;
+  }
+
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL BOTTOM NAV BREAKPOINT
+   Visible: 320px - 760px
+   Hidden: 761px+
+========================================================= */
+
+@media screen and (max-width: 760px) {
+  body {
+    padding-bottom: 72px;
+  }
+
+  .mobile-bottom-nav {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 761px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="main-header">
+
+    <div class="header-container">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo" aria-label="Squirry Fruit Home">
+        <img
+          src="frontend/assets/images/logo.jpeg"
+          alt="Squirry Fruit Logo"
+          class="brand-logo"
+        >
+      </a>
+
+
+      <!-- Delivery Location -->
+      <div class="delivery-location">
+        <i class="bi bi-geo-alt-fill"></i>
+
+        <div>
+          <small>Deliver to</small>
+          <strong>12, Green Park, Mumbai</strong>
+        </div>
+
+        <i class="bi bi-chevron-down"></i>
+      </div>
+
+
+      <!-- Search -->
+      <div class="search-box">
+
+        <input
+          type="text"
+          placeholder="Search for products, categories..."
+          id="searchInput"
+        >
+
+        <button type="button" id="searchBtn">
+          <i class="bi bi-search"></i>
+        </button>
+
+      </div>
+
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+
+        <a href="profile.html" class="header-action">
+          <i class="bi bi-heart"></i>
+          <span>Wishlist</span>
+        </a>
+
+        <a href="#" class="header-action cart-action">
+          <div class="cart-icon">
+            <i class="bi bi-cart3"></i>
+            <span class="cart-count">3</span>
+          </div>
+          <span>Cart</span>
+        </a>
+
+        <a href="profile.html" class="header-action" aria-label="Open your profile">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= NAVIGATION ================= -->
+    <nav class="navigation">
+
+      <div class="nav-container">
+
+        <button class="all-categories">
+          <i class="bi bi-list"></i>
+          All Categories
+        </button>
+
+        <a href="#" class="active">Home</a>
+        <a href="#">Fruits &amp; Vegetables</a>
+        <a href="#">Grocery &amp; Staples</a>
+        <a href="#">Dairy &amp; Bakery</a>
+        <a href="#">Beverages</a>
+        <a href="#">Personal Care</a>
+        <a href="#">Household</a>
+        <a href="#">Offers</a>
+        <a href="#">Blog</a>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- ================= HERO ================= -->
+    <section class="hero-section">
+
+      <div class="hero-content">
+
+        <div class="hero-image">
+
+          <img
+            src="frontend/assets/images/hero-groceries.jpg"
+            alt="Fresh groceries"
+          >
+</div>
+
+      </div>
+</section>
+
+
+    <!-- ================= BENEFITS ================= -->
+    <section class="benefits-section">
+
+      <div class="benefit">
+
+        <i class="bi bi-scooter"></i>
+
+        <div>
+          <strong>Fast Delivery</strong>
+          <span>10–30 mins delivery</span>
+        </div>
+
+      </div>
+
+
+      <div class="benefit">
+
+        <i class="bi bi-award"></i>
+
+        <div>
+          <strong>Best Quality</strong>
+          <span>Top quality products</span>
+        </div>
+
+      </div>
+
+
+      <div class="benefit">
+
+        <i class="bi bi-shield-check"></i>
+
+        <div>
+          <strong>Secure Payment</strong>
+          <span>100% secure payments</span>
+        </div>
+
+      </div>
+
+
+      <div class="benefit">
+
+        <i class="bi bi-headset"></i>
+
+        <div>
+          <strong>24/7 Support</strong>
+          <span>We're here to help</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+    <section class="content-section">
+
+      <div class="section-heading">
+
+        <h2>Shop by Categories</h2>
+
+        <a href="#">
+          View All
+          <i class="bi bi-chevron-right"></i>
+        </a>
+
+      </div>
+
+
+      <div class="categories-grid">
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/offer-fruits-vegetables.jpg"
+            alt="Fruits & Vegetables"
+          >
+
+          <h3>Fruits &<br>Vegetables</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/offer-grocery-staples.jpg"
+            alt="Grocery & Staples"
+          >
+
+          <h3>Grocery &<br>Staples</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-dairy-bakery.jpg"
+            alt="Dairy & Bakery"
+          >
+
+          <h3>Dairy &<br>Bakery</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-beverages.jpg"
+            alt="Beverages"
+          >
+
+          <h3>Beverages</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-personal-care.jpg"
+            alt="Personal Care"
+          >
+
+          <h3>Personal<br>Care</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-household-care.jpg"
+            alt="Household"
+          >
+
+          <h3>Household<br>Care</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-snacks-munchies.jpg"
+            alt="Snacks & Munchies"
+          >
+
+          <h3>Snacks &<br>Munchies</h3>
+
+        </a>
+
+
+        <a href="#" class="category-card">
+
+          <img
+            src="frontend/assets/images/category-baby-care.jpg"
+            alt="Baby Care"
+          >
+
+          <h3>Baby<br>Care</h3>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= OFFERS ================= -->
+    <section class="content-section offers-section">
+
+      <div class="section-heading">
+
+        <h2>Best Offers for You</h2>
+
+        <a href="#">
+          View All Offers
+          <i class="bi bi-chevron-right"></i>
+        </a>
+
+      </div>
+
+
+      <div class="offers-grid">
+
+
+        <!-- Offer 1 -->
+        <a href="#" class="offer-card offer-one">
+
+          <div class="offer-content">
+
+            <small>UP TO</small>
+
+            <strong>40% OFF</strong>
+
+            <span>On Fruits & Vegetables</span>
+
+            <b>
+              Shop Now
+              <i class="bi bi-chevron-right"></i>
+            </b>
+
+          </div>
+
+          <img
+            src="frontend/assets/images/offer-fruits-vegetables.jpg"
+            alt="Fruits offer"
+          >
+
+        </a>
+
+
+        <!-- Offer 2 -->
+        <a href="#" class="offer-card offer-two">
+
+          <div class="offer-content">
+
+            <small>FLAT</small>
+
+            <strong>30% OFF</strong>
+
+            <span>On Grocery & Staples</span>
+
+            <b>
+              Shop Now
+              <i class="bi bi-chevron-right"></i>
+            </b>
+
+          </div>
+
+          <img
+            src="frontend/assets/images/offer-grocery-staples.jpg"
+            alt="Grocery offer"
+          >
+
+        </a>
+
+
+        <!-- Offer 3 -->
+        <a href="#" class="offer-card offer-three">
+
+          <div class="offer-content">
+
+            <small>UP TO</small>
+
+            <strong>25% OFF</strong>
+
+            <span>On Personal Care</span>
+
+            <b>
+              Shop Now
+              <i class="bi bi-chevron-right"></i>
+            </b>
+
+          </div>
+
+          <img
+            src="frontend/assets/images/offer-personal-care.jpg"
+            alt="Personal care offer"
+          >
+
+        </a>
+
+
+        <!-- Offer 4 -->
+        <a href="#" class="offer-card offer-four">
+
+          <div class="offer-content">
+
+            <small>BUY 1 GET 1</small>
+
+            <strong>FREE</strong>
+
+            <span>On Selected Items</span>
+
+            <b>
+              Shop Now
+              <i class="bi bi-chevron-right"></i>
+            </b>
+
+          </div>
+
+          <img
+            src="frontend/assets/images/offer-snacks.jpg"
+            alt="Buy one get one offer"
+          >
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <div>
+        <strong>Squirry Fruit</strong>
+        <p>Fresh groceries, delivered fast.</p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Offers</a>
+      </div>
+
+      <div>
+        <h4>Customer Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Shipping Policy</a>
+        <a href="#">Returns</a>
+      </div>
+
+      <div>
+        <h4>Follow Us</h4>
+
+        <div class="social-icons">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+
+  <!-- =====================================================
+       MOBILE + TABLET BOTTOM NAVIGATION
+       Visible up to 1024px only
+  ====================================================== -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+
+    <a href="Home.html" class="bottom-nav-item active" aria-current="page">
+      <span class="bottom-nav-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 10.5L12 3l9 7.5"></path>
+          <path d="M5 9.5V21h5v-6h4v6h5V9.5"></path>
+        </svg>
+      </span>
+      <span>Home</span>
+    </a>
+
+    <a href="categories.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+        </svg>
+      </span>
+      <span>Categories</span>
+    </a>
+
+    <a href="profile.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 3h12v18H6z"></path>
+          <path d="M9 7h6"></path>
+          <path d="M9 11h6"></path>
+          <path d="M4 17h4"></path>
+        </svg>
+      </span>
+      <span>Orders</span>
+    </a>
+
+    <a href="profile.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c1-5 4-7 8-7s7 2 8 7"></path>
+        </svg>
+      </span>
+      <span>Account</span>
+    </a>
+
+    <a href="fruits-vegetables.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 5h2l2 10h9l2-7H7"></path>
+          <circle cx="10" cy="19" r="1"></circle>
+          <circle cx="17" cy="19" r="1"></circle>
+        </svg>
+        <span class="bottom-cart-badge">2</span>
+      </span>
+      <span>Cart</span>
+    </a>
+
+  </nav>
+
+</body>
+</html>

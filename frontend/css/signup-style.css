@@ -400,6 +400,23 @@ body {
     background: #316b05;
 }
 
+.create-account-btn:disabled {
+    cursor: wait;
+    opacity: 0.75;
+}
+
+.form-status {
+    min-height: 18px;
+    margin-top: 7px;
+    text-align: center;
+    font-size: 11.5px;
+    font-weight: 500;
+}
+
+.form-status.is-pending { color: #555555; }
+.form-status.is-success { color: #287107; }
+.form-status.is-error { color: #b42318; }
+
 
 /* =========================================
    BUTTON ARROW

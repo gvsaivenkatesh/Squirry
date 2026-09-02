@@ -105,13 +105,19 @@
                             Password
                         </label>
 
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter password"
-                            autocomplete="current-password"
-                        >
+                        <div class="password-input">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter password"
+                                autocomplete="current-password"
+                            >
+
+                            <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false">
+                                <span aria-hidden="true">👁</span>
+                            </button>
+                        </div>
 
                     </div>
 
