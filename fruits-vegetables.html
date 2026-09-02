@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fruits & Vegetables - Squirry Fruit</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background: #fff;
+      line-height: 1.4;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    :root {
+      --orange: #ff6500;
+      --orange-soft: #fff0e7;
+      --green: #1f8a35;
+      --border: #e9e9e9;
+      --muted: #666;
+      --card-radius: 12px;
+    }
+
+    /* =====================================================
+       PAGE WRAPPER
+    ===================================================== */
+    .page-wrap {
+      width: calc(100% - 64px);
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    /* =====================================================
+       BREADCRUMB
+    ===================================================== */
+    .breadcrumb {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .breadcrumb i {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .breadcrumb .current {
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    /* =====================================================
+       CATEGORY HERO
+    ===================================================== */
+    .category-hero {
+      min-height: 125px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 28% 72%;
+      background: #fff;
+    }
+
+    .category-title {
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid #f2f2f2;
+    }
+
+    .category-title h1 {
+      font-size: 27px;
+      line-height: 1.15;
+      margin-bottom: 7px;
+    }
+
+    .category-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .category-banner {
+      min-height: 125px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, #f4fbef 0%, #eff9ec 55%, #edf8e8 100%);
+    }
+
+    .category-banner-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      min-height: 125px;
+      padding: 0 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .category-banner-content h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .category-banner-content p {
+      font-size: 15px;
+    }
+
+    .category-banner-content strong {
+      color: var(--green);
+    }
+
+    .category-banner img {
+      position: absolute;
+      right: 20px;
+      bottom: -8px;
+      width: 46%;
+      height: 130px;
+      object-fit: contain;
+      object-position: right bottom;
+    }
+
+    /* =====================================================
+       CATALOG LAYOUT
+    ===================================================== */
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: 255px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* =====================================================
+       FILTER SIDEBAR
+    ===================================================== */
+    .filters {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      position: sticky;
+      top: 12px;
+    }
+
+    .filter-group {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-group:last-child {
+      border-bottom: 0;
+    }
+
+    .filter-title {
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .filter-trigger {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .filter-trigger i {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .filter-group.is-collapsed .filter-trigger i {
+      transform: rotate(180deg);
+    }
+
+    .filter-group.is-collapsed .filter-body {
+      display: none;
+    }
+
+    .filter-trigger:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .filter-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .filter-list a {
+      display: block;
+      padding: 8px;
+      border-radius: 7px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .filter-list a.active {
+      color: var(--orange);
+      background: var(--orange-soft);
+      font-weight: 600;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .check-row input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--orange);
+    }
+
+    .price-range {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 68px;
+      gap: 8px;
+    }
+
+    .price-range input {
+      width: 100%;
+      height: 38px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      padding: 0 10px;
+      outline: none;
+    }
+
+    .price-range button {
+      height: 38px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* =====================================================
+       CATALOG CONTENT
+    ===================================================== */
+    .catalog-content {
+      min-width: 0;
+    }
+
+    .catalog-toolbar {
+      min-height: 52px;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+    }
+
+    .sort-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .sort-wrap select {
+      height: 36px;
+      min-width: 125px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      padding: 0 10px;
+      outline: none;
+      background: #fff;
+    }
+
+    .item-count {
+      justify-self: center;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .view-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .view-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #eee;
+      border-radius: 7px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .view-btn.active {
+      background: #fff4ed;
+      color: var(--orange);
+      border-color: #ffd7bf;
+    }
+
+    /* =====================================================
+       PRODUCT GRID
+    ===================================================== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .product-card {
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      background: #fff;
+      overflow: hidden;
+      transition: .2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, .07);
+    }
+
+    .product-image {
+      height: 150px;
+      padding: 14px 12px 6px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .discount-pill {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      background: #eaf8e9;
+      color: #18812b;
+      font-size: 10px;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    .product-info {
+      padding: 9px 12px 12px;
+    }
+
+    .product-name {
+      min-height: 36px;
+      margin-bottom: 3px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .product-unit {
+      min-height: 20px;
+      margin-bottom: 4px;
+      color: #666;
+      font-size: 11px;
+    }
+
+    .price-row {
+      min-height: 27px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sale-price {
+      color: var(--orange);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .old-price {
+      color: #777;
+      font-size: 11px;
+      text-decoration: line-through;
+    }
+
+    .add-cart {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--orange);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .add-cart:hover {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    /* =====================================================
+       PAGINATION
+    ===================================================== */
+    .pagination {
+      margin: 22px 0 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 9px;
+      border: 1px solid #e5e5e5;
+      border-radius: 7px;
+      background: #fff;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .page-btn.active {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+
+    .page-btn:disabled {
+      color: #bbb;
+      cursor: default;
+    }
+
+    /* =====================================================
+       MOBILE FILTER BUTTON
+    ===================================================== */
+    .mobile-filter-btn {
+      display: none;
+    }
+
+    /* =====================================================
+       MOBILE BOTTOM NAV
+       Visible only 320px - 760px
+    ===================================================== */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    @media screen and (max-width: 760px) {
+      body {
+        padding-bottom: 72px;
+      }
+
+      .mobile-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 68px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: #fff;
+        border-top: 1px solid #e7e7e7;
+        box-shadow: 0 -2px 10px rgba(0,0,0,.06);
+        z-index: 9999;
+      }
+
+      .mobile-bottom-nav a {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        color: #333;
+        font-size: 11px;
+      }
+
+      .mobile-bottom-nav a.active {
+        color: var(--orange);
+        font-weight: 700;
+      }
+
+      .mobile-bottom-nav i {
+        font-size: 21px;
+      }
+
+      .mobile-cart-icon {
+        position: relative;
+      }
+
+      .mobile-cart-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        min-width: 17px;
+        height: 17px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: #ef3b4f;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        border: 2px solid #fff;
+      }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1024px) {
+      .page-wrap {
+        width: calc(100% - 36px);
+      }
+
+      .category-hero {
+        grid-template-columns: 34% 66%;
+      }
+
+      .catalog-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .product-image {
+        height: 160px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-wrap {
+        width: calc(100% - 24px);
+      }
+
+      .breadcrumb {
+        min-height: 40px;
+        font-size: 12px;
+      }
+
+      .category-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .category-title {
+        padding: 18px;
+        border-right: 0;
+        border-bottom: 1px solid #f2f2f2;
+      }
+
+      .category-title h1 {
+        font-size: 22px;
+      }
+
+      .category-banner {
+        min-height: 115px;
+      }
+
+      .category-banner-content {
+        padding: 18px;
+        min-height: 115px;
+      }
+
+      .category-banner-content h2 {
+        font-size: 16px;
+      }
+
+      .category-banner img {
+        width: 52%;
+        height: 110px;
+        right: -5px;
+      }
+
+      .catalog-layout {
+        display: block;
+      }
+
+      .filters {
+        display: none;
+        position: static;
+        margin-bottom: 12px;
+      }
+
+      .filters.open {
+        display: block;
+      }
+
+      .catalog-toolbar {
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+
+      .sort-wrap {
+        grid-column: 1 / 2;
+      }
+
+      .item-count {
+        display: none;
+      }
+
+      .view-toggle {
+        justify-self: end;
+      }
+
+      .mobile-filter-btn {
+        display: inline-flex;
+        height: 36px;
+        padding: 0 12px;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        background: #fff;
+        align-items: center;
+        gap: 7px;
+        color: #333;
+        cursor: pointer;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .product-image {
+        height: 135px;
+      }
+
+      .product-info {
+        padding: 8px 9px 10px;
+      }
+
+      .product-name {
+        font-size: 12px;
+      }
+
+      .sale-price {
+        font-size: 16px;
+      }
+
+      .add-cart {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .products-grid {
+        gap: 8px;
+      }
+
+      .product-image {
+        height: 115px;
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+
+      .category-banner-content {
+        max-width: 64%;
+      }
+
+      .category-banner img {
+        width: 55%;
+      }
+
+      .sort-wrap span {
+        display: none;
+      }
+
+      .sort-wrap select {
+        min-width: 115px;
+      }
+
+      .view-toggle > span {
+        display: none;
+      }
+    }
+  
+/* =========================================================
+   FINAL FRUITS & VEGETABLES SCREEN UPDATE
+   Desktop reference + responsive tablet/mobile
+========================================================= */
+
+body {
+  background: #fff;
+}
+
+.page-wrap {
+  width: calc(100% - 64px);
+  max-width: 1504px;
+}
+
+.breadcrumb {
+  min-height: 46px;
+  padding: 0 4px;
+}
+
+.category-hero {
+  min-height: 126px;
+  grid-template-columns: 27.5% 72.5%;
+  border-radius: 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.02);
+}
+
+.category-title {
+  padding: 26px 28px;
+}
+
+.category-title h1 {
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.category-banner {
+  min-height: 126px;
+}
+
+.category-banner-content {
+  min-height: 126px;
+  padding-left: 46px;
+}
+
+.category-banner img {
+  right: 22px;
+  bottom: -12px;
+  width: 48%;
+  height: 138px;
+}
+
+.catalog-layout {
+  grid-template-columns: 254px minmax(0, 1fr);
+  gap: 17px;
+}
+
+.filters {
+  border-radius: 11px;
+}
+
+.filter-group {
+  padding: 15px 16px;
+}
+
+.filter-list {
+  gap: 5px;
+}
+
+.filter-list a {
+  padding: 7px 8px;
+}
+
+.catalog-toolbar {
+  min-height: 52px;
+  margin-bottom: 13px;
+  padding: 7px 12px;
+  border-radius: 10px;
+}
+
+.sort-wrap select {
+  height: 36px;
+  min-width: 126px;
+}
+
+.products-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.product-card {
+  border-radius: 11px;
+}
+
+.product-image {
+  height: 148px;
+  padding: 12px 10px 4px;
+}
+
+.product-name {
+  min-height: 33px;
+}
+
+.product-info {
+  padding: 8px 11px 11px;
+}
+
+.add-cart {
+  height: 37px;
+}
+
+.pagination {
+  margin-top: 23px;
+  margin-bottom: 34px;
+}
+
+@media (max-width: 1024px) {
+  .page-wrap {
+    width: calc(100% - 36px);
+  }
+
+  .category-hero {
+    grid-template-columns: 34% 66%;
+  }
+
+  .catalog-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .product-image {
+    height: 150px;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-wrap {
+    width: calc(100% - 24px);
+  }
+
+  .category-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .category-title {
+    padding: 17px;
+  }
+
+  .category-title h1 {
+    font-size: 21px;
+  }
+
+  .category-banner-content {
+    padding: 17px;
+    max-width: 68%;
+  }
+
+  .category-banner img {
+    width: 52%;
+    right: -8px;
+    height: 112px;
+  }
+
+  .catalog-layout {
+    display: block;
+  }
+
+  .filters {
+    display: none;
+    margin-bottom: 12px;
+    position: static;
+  }
+
+  .filters.open {
+    display: block;
+  }
+
+  .catalog-toolbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .item-count {
+    display: none;
+  }
+
+  .mobile-filter-btn {
+    display: inline-flex;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .product-image {
+    height: 128px;
+  }
+
+  .product-info {
+    padding: 8px;
+  }
+
+  .product-name {
+    font-size: 12px;
+  }
+
+  .sale-price {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .page-wrap {
+    width: calc(100% - 18px);
+  }
+
+  .product-image {
+    height: 110px;
+  }
+
+  .add-cart {
+    font-size: 10px;
+  }
+}
+
+/* LIST VIEW */
+.products-grid.list-view {
+  grid-template-columns: 1fr !important;
+}
+
+.products-grid.list-view .product-card {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  align-items: center;
+}
+
+.products-grid.list-view .product-image {
+  height: 150px;
+}
+
+.products-grid.list-view .product-info {
+  padding: 16px;
+}
+
+.products-grid.list-view .product-name {
+  min-height: 0;
+  font-size: 15px;
+}
+
+.products-grid.list-view .add-cart {
+  max-width: 180px;
+}
+
+@media (max-width: 760px) {
+  .products-grid.list-view .product-card {
+    grid-template-columns: 120px 1fr;
+  }
+
+  .products-grid.list-view .product-image {
+    height: 115px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- Reusable header -->
+  <div id="site-header"></div>
+
+  <div class="page-wrap">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="Home.html">Home</a>
+      <i class="bi bi-chevron-right"></i>
+      <span class="current">Fruits &amp; Vegetables</span>
+      
+    </div>
+
+    <!-- Category hero -->
+    <section class="category-hero">
+
+      <div class="category-title">
+        <h1>Fruits &amp; Vegetables</h1>
+        <p>Fresh and handpicked daily</p>
+      </div>
+
+      <div class="category-banner">
+        <div class="category-banner-content">
+          <h2>Eat Fresh, Stay Healthy</h2>
+          <p>Up to <strong>20% OFF</strong> on all Fruits &amp; Vegetables</p>
+        </div>
+
+        <img
+          src="frontend/assets/images/offer-fruits-vegetables.jpg"
+          alt="Fresh fruits and vegetables"
+          onerror="this.style.display='none';"
+        >
+      </div>
+
+    </section>
+
+
+    <section class="catalog-layout">
+
+      <!-- Filters -->
+      <aside class="filters" id="filtersPanel">
+
+        <div class="filter-group">
+          <button class="filter-title filter-trigger" type="button" aria-expanded="true" aria-controls="categoriesFilter">
+            <span>Categories</span>
+            <i class="bi bi-chevron-up"></i>
+          </button>
+
+          <div class="filter-body" id="categoriesFilter">
+            <ul class="filter-list">
+              <li><a class="active" href="#">All Fruits &amp; Vegetables</a></li>
+              <li><a href="#">Fresh Fruits</a></li>
+              <li><a href="#">Fresh Vegetables</a></li>
+              <li><a href="#">Herbs &amp; Seasonings</a></li>
+              <li><a href="#">Exotic Fruits</a></li>
+              <li><a href="#">Organic Produce</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-title filter-trigger" type="button" aria-expanded="true" aria-controls="priceFilter">
+            <span>Price</span>
+            <i class="bi bi-chevron-up"></i>
+          </button>
+
+          <div class="filter-body" id="priceFilter">
+            <label class="check-row">
+              <input type="checkbox">
+              <span>Under ₹50</span>
+            </label>
+
+            <label class="check-row">
+              <input type="checkbox">
+              <span>₹50 - ₹100</span>
+            </label>
+
+            <label class="check-row">
+              <input type="checkbox">
+              <span>₹100 - ₹200</span>
+            </label>
+
+            <label class="check-row">
+              <input type="checkbox">
+              <span>Above ₹200</span>
+            </label>
+
+            <div class="price-range">
+              <input type="number" placeholder="₹ Min" aria-label="Minimum price">
+              <input type="number" placeholder="₹ Max" aria-label="Maximum price">
+              <button type="button">Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-title filter-trigger" type="button" aria-expanded="true" aria-controls="moreFilters">
+            <span>More Filters</span>
+            <i class="bi bi-chevron-up"></i>
+          </button>
+
+          <div class="filter-body" id="moreFilters">
+            <label class="check-row">
+              <input type="checkbox">
+              <span>Organic</span>
+            </label>
+          </div>
+        </div>
+
+      </aside>
+
+
+      <!-- Main catalog -->
+      <div class="catalog-content">
+
+        <div class="catalog-toolbar">
+
+          <div class="sort-wrap">
+            <button
+              class="mobile-filter-btn"
+              type="button"
+              id="mobileFilterBtn"
+            >
+              <i class="bi bi-funnel"></i>
+              Filters
+            </button>
+
+            <span>Sort by:</span>
+
+            <select id="sortSelect">
+              <option>Popularity</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest</option>
+            </select>
+          </div>
+
+          <div class="item-count">
+            Showing 1–30 of 120 items
+          </div>
+
+          <div class="view-toggle">
+            <span>View:</span>
+
+            <button class="view-btn active" type="button" title="Grid view" id="gridViewBtn">
+              <i class="bi bi-grid-fill"></i>
+            </button>
+
+            <button class="view-btn" type="button" title="List view" id="listViewBtn">
+              <i class="bi bi-list-ul"></i>
+            </button>
+          </div>
+
+        </div>
+
+
+        <!-- Products -->
+        <div class="products-grid">
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">20% OFF</span>
+              <img src="frontend/assets/images/product-tomato.jpg" alt="Farm Fresh Tomatoes" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Farm Fresh Tomatoes</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹39</span>
+                <span class="old-price">₹49</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">15% OFF</span>
+              <img src="frontend/assets/images/product-onion.jpg" alt="Onion" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Onion</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹29</span>
+                <span class="old-price">₹35</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">10% OFF</span>
+              <img src="frontend/assets/images/product-potato.jpg" alt="Potato" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Potato</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹25</span>
+                <span class="old-price">₹28</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">12% OFF</span>
+              <img src="frontend/assets/images/product-cucumber.jpg" alt="Cucumber" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Cucumber</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹20</span>
+                <span class="old-price">₹23</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">15% OFF</span>
+              <img src="frontend/assets/images/product-apple.jpg" alt="Apple Red" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Apple (Red)</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹129</span>
+                <span class="old-price">₹149</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">10% OFF</span>
+              <img src="frontend/assets/images/product-banana.jpg" alt="Banana" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Banana</h3>
+              <p class="product-unit">1 dozen</p>
+              <div class="price-row">
+                <span class="sale-price">₹45</span>
+                <span class="old-price">₹50</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">12% OFF</span>
+              <img src="frontend/assets/images/product-capsicum.jpg" alt="Capsicum Green" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Capsicum Green</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹40</span>
+                <span class="old-price">₹45</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">10% OFF</span>
+              <img src="frontend/assets/images/product-carrot.jpg" alt="Carrot" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Carrot</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹30</span>
+                <span class="old-price">₹33</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">10% OFF</span>
+              <img src="frontend/assets/images/product-cauliflower.jpg" alt="Cauliflower" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Cauliflower</h3>
+              <p class="product-unit">1 pc</p>
+              <div class="price-row">
+                <span class="sale-price">₹35</span>
+                <span class="old-price">₹38</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">15% OFF</span>
+              <img src="frontend/assets/images/product-palak.jpg" alt="Palak Spinach" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Palak (Spinach)</h3>
+              <p class="product-unit">1 bunch</p>
+              <div class="price-row">
+                <span class="sale-price">₹18</span>
+                <span class="old-price">₹21</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">15% OFF</span>
+              <img src="frontend/assets/images/product-grapes.jpg" alt="Green Grapes" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Grapes (Green)</h3>
+              <p class="product-unit">500 g</p>
+              <div class="price-row">
+                <span class="sale-price">₹89</span>
+                <span class="old-price">₹105</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <span class="discount-pill">12% OFF</span>
+              <img src="frontend/assets/images/product-pomegranate.jpg" alt="Pomegranate" onerror="this.onerror=null;this.src='frontend/assets/images/offer-fruits-vegetables.jpg';">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">Pomegranate</h3>
+              <p class="product-unit">1 kg</p>
+              <div class="price-row">
+                <span class="sale-price">₹110</span>
+                <span class="old-price">₹125</span>
+              </div>
+              <button class="add-cart" type="button">
+                <i class="bi bi-cart3"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Broccoli"></div><div class="product-info"><h3 class="product-name">Broccoli</h3><p class="product-unit">1 pc</p><div class="price-row"><span class="sale-price">₹55</span><span class="old-price">₹62</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Orange"></div><div class="product-info"><h3 class="product-name">Orange</h3><p class="product-unit">1 kg</p><div class="price-row"><span class="sale-price">₹75</span><span class="old-price">₹88</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">12% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Mango"></div><div class="product-info"><h3 class="product-name">Mango</h3><p class="product-unit">1 kg</p><div class="price-row"><span class="sale-price">₹120</span><span class="old-price">₹136</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Papaya"></div><div class="product-info"><h3 class="product-name">Papaya</h3><p class="product-unit">1 pc</p><div class="price-row"><span class="sale-price">₹48</span><span class="old-price">₹54</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Watermelon"></div><div class="product-info"><h3 class="product-name">Watermelon</h3><p class="product-unit">1 pc</p><div class="price-row"><span class="sale-price">₹65</span><span class="old-price">₹76</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">12% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Beetroot"></div><div class="product-info"><h3 class="product-name">Beetroot</h3><p class="product-unit">500 g</p><div class="price-row"><span class="sale-price">₹32</span><span class="old-price">₹36</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Sweet Corn"></div><div class="product-info"><h3 class="product-name">Sweet Corn</h3><p class="product-unit">2 pcs</p><div class="price-row"><span class="sale-price">₹38</span><span class="old-price">₹42</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Bottle Gourd"></div><div class="product-info"><h3 class="product-name">Bottle Gourd</h3><p class="product-unit">1 kg</p><div class="price-row"><span class="sale-price">₹42</span><span class="old-price">₹49</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Lemon"></div><div class="product-info"><h3 class="product-name">Lemon</h3><p class="product-unit">500 g</p><div class="price-row"><span class="sale-price">₹35</span><span class="old-price">₹39</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">12% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Pear"></div><div class="product-info"><h3 class="product-name">Pear</h3><p class="product-unit">1 kg</p><div class="price-row"><span class="sale-price">₹110</span><span class="old-price">₹125</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Kiwi"></div><div class="product-info"><h3 class="product-name">Kiwi</h3><p class="product-unit">3 pcs</p><div class="price-row"><span class="sale-price">₹99</span><span class="old-price">₹116</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Dragon Fruit"></div><div class="product-info"><h3 class="product-name">Dragon Fruit</h3><p class="product-unit">1 pc</p><div class="price-row"><span class="sale-price">₹85</span><span class="old-price">₹95</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">12% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Mushroom"></div><div class="product-info"><h3 class="product-name">Mushroom</h3><p class="product-unit">200 g</p><div class="price-row"><span class="sale-price">₹45</span><span class="old-price">₹51</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Okra"></div><div class="product-info"><h3 class="product-name">Okra</h3><p class="product-unit">500 g</p><div class="price-row"><span class="sale-price">₹38</span><span class="old-price">₹42</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Green Peas"></div><div class="product-info"><h3 class="product-name">Green Peas</h3><p class="product-unit">500 g</p><div class="price-row"><span class="sale-price">₹52</span><span class="old-price">₹61</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">12% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Coriander"></div><div class="product-info"><h3 class="product-name">Coriander</h3><p class="product-unit">1 bunch</p><div class="price-row"><span class="sale-price">₹15</span><span class="old-price">₹17</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">10% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Ginger"></div><div class="product-info"><h3 class="product-name">Ginger</h3><p class="product-unit">250 g</p><div class="price-row"><span class="sale-price">₹30</span><span class="old-price">₹33</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+          <article class="product-card"><div class="product-image"><span class="discount-pill">15% OFF</span><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Garlic"></div><div class="product-info"><h3 class="product-name">Garlic</h3><p class="product-unit">250 g</p><div class="price-row"><span class="sale-price">₹42</span><span class="old-price">₹49</span></div><button class="add-cart" type="button"><i class="bi bi-cart3"></i>Add to Cart</button></div></article>
+
+        </div>
+
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="page-btn" type="button" disabled>
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <button class="page-btn active" type="button">1</button>
+          <button class="page-btn" type="button">2</button>
+          <button class="page-btn" type="button">3</button>
+          <button class="page-btn" type="button">4</button>
+          <button class="page-btn" type="button">5</button>
+          <button class="page-btn" type="button">...</button>
+          <button class="page-btn" type="button">10</button>
+
+          <button class="page-btn" type="button">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- Mobile bottom navigation -->
+  <nav class="mobile-bottom-nav">
+
+    <a href="Home.html">
+      <i class="bi bi-house"></i>
+      <span>Home</span>
+    </a>
+
+    <a href="fruits-vegetables.html" class="active">
+      <i class="bi bi-grid"></i>
+      <span>Categories</span>
+    </a>
+
+    <a href="profile.html">
+      <i class="bi bi-receipt"></i>
+      <span>Orders</span>
+    </a>
+
+    <a href="profile.html">
+      <i class="bi bi-person-circle"></i>
+      <span>Account</span>
+    </a>
+
+    <a href="fruits-vegetables.html">
+      <span class="mobile-cart-icon">
+        <i class="bi bi-cart3"></i>
+        <span class="mobile-cart-count">2</span>
+      </span>
+      <span>Cart</span>
+    </a>
+
+  </nav>
+
+
+  <script>
+    /* =====================================================
+       SHARED HEADER
+    ===================================================== */
+    const headerMount = document.getElementById('site-header');
+
+    if (headerMount) {
+      fetch('./header.html')
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Unable to load header.html: HTTP ' + response.status);
+          }
+          return response.text();
+        })
+        .then(function (html) {
+          headerMount.innerHTML = html;
+
+        const links = headerMount.querySelectorAll('.nav-container a');
+        links.forEach(function (link) {
+          link.classList.remove('active');
+
+          if (link.getAttribute('href') === 'fruits-vegetables.html') {
+            link.classList.add('active');
+          }
+        });
+
+        const searchInput = headerMount.querySelector('#searchInput');
+        const searchBtn = headerMount.querySelector('#searchBtn');
+
+        function runSearch() {
+          const value = searchInput ? searchInput.value.trim() : '';
+          if (!value) return;
+
+          window.location.href =
+            'search.html?q=' + encodeURIComponent(value);
+        }
+
+        if (searchBtn) {
+          searchBtn.addEventListener('click', runSearch);
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+              runSearch();
+            }
+          });
+        }
+      })
+        .catch(function (error) {
+          console.error(error);
+          headerMount.innerHTML =
+            '<div style="padding:12px 20px;border-bottom:1px solid #eee;background:#fff;">' +
+            '<a href="Home.html" style="font-weight:700;color:#ff6500;text-decoration:none;">Squirry Fruit</a>' +
+            '</div>';
+        });
+    }
+
+
+    /* =====================================================
+       MOBILE FILTER
+    ===================================================== */
+    const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+    const filtersPanel = document.getElementById('filtersPanel');
+
+    if (mobileFilterBtn && filtersPanel) {
+      mobileFilterBtn.addEventListener('click', function () {
+        filtersPanel.classList.toggle('open');
+      });
+    }
+
+    document.querySelectorAll('.filter-trigger').forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        const group = trigger.closest('.filter-group');
+        const isCollapsed = group.classList.toggle('is-collapsed');
+        trigger.setAttribute('aria-expanded', String(!isCollapsed));
+      });
+    });
+
+
+    /* =====================================================
+       GRID / LIST VIEW
+    ===================================================== */
+    const productsGrid = document.querySelector('.products-grid');
+    const gridViewBtn = document.getElementById('gridViewBtn');
+    const listViewBtn = document.getElementById('listViewBtn');
+
+    if (gridViewBtn && listViewBtn && productsGrid) {
+      gridViewBtn.addEventListener('click', function () {
+        productsGrid.classList.remove('list-view');
+        gridViewBtn.classList.add('active');
+        listViewBtn.classList.remove('active');
+      });
+
+      listViewBtn.addEventListener('click', function () {
+        productsGrid.classList.add('list-view');
+        listViewBtn.classList.add('active');
+        gridViewBtn.classList.remove('active');
+      });
+    }
+
+
+    /* =====================================================
+       SORT
+    ===================================================== */
+    const sortSelect = document.getElementById('sortSelect');
+
+    if (sortSelect && productsGrid) {
+      sortSelect.addEventListener('change', function () {
+        const cards = Array.from(
+          productsGrid.querySelectorAll('.product-card')
+        );
+
+        function priceOf(card) {
+          const text =
+            card.querySelector('.sale-price').textContent;
+
+          return Number(text.replace(/[^\d.]/g, '')) || 0;
+        }
+
+        if (sortSelect.value === 'Price: Low to High') {
+          cards.sort(function (a, b) {
+            return priceOf(a) - priceOf(b);
+          });
+        }
+
+        if (sortSelect.value === 'Price: High to Low') {
+          cards.sort(function (a, b) {
+            return priceOf(b) - priceOf(a);
+          });
+        }
+
+        cards.forEach(function (card) {
+          productsGrid.appendChild(card);
+        });
+      });
+    }
+
+
+    /* =====================================================
+       ADD TO CART
+    ===================================================== */
+    let cartCount = 2;
+
+    function updateCartCount() {
+      const mobileBadge =
+        document.querySelector('.mobile-cart-count');
+
+      if (mobileBadge) {
+        mobileBadge.textContent = cartCount;
+      }
+
+      const headerBadge =
+        document.querySelector('#site-header .cart-count');
+
+      if (headerBadge) {
+        headerBadge.textContent = cartCount;
+      }
+    }
+
+    document.querySelectorAll('.add-cart').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (button.dataset.added === 'true') return;
+
+        button.dataset.added = 'true';
+        cartCount += 1;
+
+        button.innerHTML =
+          '<i class="bi bi-check2"></i> Added';
+
+        button.style.background = '#ff6500';
+        button.style.color = '#ffffff';
+
+        updateCartCount();
+      });
+    });
+
+
+    /* =====================================================
+       PRICE APPLY
+    ===================================================== */
+    const priceApplyBtn =
+      document.querySelector('.price-range button');
+
+    if (priceApplyBtn) {
+      priceApplyBtn.addEventListener('click', function () {
+        const inputs =
+          document.querySelectorAll('.price-range input');
+
+        const min = Number(inputs[0].value) || 0;
+        const max = Number(inputs[1].value) || Infinity;
+
+        document.querySelectorAll('.product-card')
+          .forEach(function (card) {
+            const priceText =
+              card.querySelector('.sale-price').textContent;
+
+            const price =
+              Number(priceText.replace(/[^\d.]/g, '')) || 0;
+
+            card.style.display =
+              price >= min && price <= max ? '' : 'none';
+          });
+      });
+    }
+
+
+    /* =====================================================
+       PAGINATION ACTIVE STATE
+    ===================================================== */
+    document.querySelectorAll('.page-btn').forEach(function (button) {
+      if (button.disabled) return;
+
+      button.addEventListener('click', function () {
+        const text = button.textContent.trim();
+
+        if (!/^\d+$/.test(text)) return;
+
+        document.querySelectorAll('.page-btn')
+          .forEach(function (item) {
+            item.classList.remove('active');
+          });
+
+        button.classList.add('active');
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

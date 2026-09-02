@@ -1,6 +1,6 @@
 /* =========================================
    SQUIRRY FOOD - RESPONSIVE WELCOME PAGE
-   Mobile + Tablet only
+   Mobile, tablet, and desktop
 ========================================= */
 
 * {
@@ -12,7 +12,7 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     overflow: hidden;
     background: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
@@ -24,7 +24,7 @@ body {
 ========================================= */
 
 .welcome-page {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     height: 100dvh;
 
@@ -45,13 +45,10 @@ body {
 .design-container {
     position: relative;
 
-    width: auto;
-    height: 100dvh;
-
-    aspect-ratio: 943 / 1605;
-
-    max-width: 100vw;
-    max-height: 100dvh;
+    /* Preserve the artwork's portrait ratio while fitting either dimension. */
+    width: min(100vw, 58.63dvh);
+    height: min(100dvh, 170.56vw);
+    aspect-ratio: 941 / 1605;
 
     margin: 0 auto;
 
@@ -151,165 +148,35 @@ body {
 }
 
 
-/* =========================================
-   MOBILE PORTRAIT
-   0px - 479px
-========================================= */
+@media screen and (max-width: 479px) {
+    .get-started-btn { width: 86%; height: 50px; min-height: 46px; font-size: 16px; border-radius: 16px; }
+    .get-started-btn .arrow { font-size: 23px; }
+}
 
-@media screen and (max-width: 479px) and (orientation: portrait) {
+@media screen and (min-width: 480px) and (max-width: 1024px) {
+    .get-started-btn { width: 84%; height: 56px; font-size: 18px; }
+    .get-started-btn .arrow { font-size: 26px; }
+}
 
-    .design-container {
-        width: 100vw;
-        height: auto;
-
-        aspect-ratio: 943 / 1605;
-
-        max-height: 100dvh;
-    }
-
-    .design-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .get-started-btn {
-        width: 86%;
-        height: 50px;
-
-        min-height: 46px;
-
-        bottom: 3.2%;
-
-        font-size: 16px;
-
-        border-radius: 16px;
-    }
-
-    .get-started-btn .arrow {
-        right: 6%;
-        font-size: 23px;
-    }
+@media screen and (max-height: 560px) {
+    .get-started-btn { height: 46px; min-height: 44px; font-size: 15px; border-radius: 14px; }
+    .get-started-btn .arrow { font-size: 21px; }
 }
 
 
-/* =========================================
-   TALL / NARROW MOBILE
-========================================= */
-
-@media screen and (max-width: 360px) and (orientation: portrait) {
-
-    .welcome-page {
-        align-items: center;
-    }
-
-    .design-container {
-        width: 100vw;
-        height: auto;
-    }
-
-    .get-started-btn {
-        width: 87%;
-        height: 46px;
-
-        bottom: 3%;
-
-        font-size: 15px;
-
-        border-radius: 15px;
-    }
-
-    .get-started-btn .arrow {
-        font-size: 21px;
-    }
-}
-
-
-/* =========================================
-   TABLET PORTRAIT
-   480px - 1024px
-========================================= */
-
-@media screen and (min-width: 480px) and (max-width: 1024px)
-and (orientation: portrait) {
-
-    .design-container {
-        height: 100dvh;
-        width: auto;
-
-        aspect-ratio: 943 / 1605;
-    }
-
-    .get-started-btn {
-        width: 84%;
-        height: 56px;
-
-        bottom: 3.2%;
-
-        font-size: 18px;
-    }
-
-    .get-started-btn .arrow {
-        font-size: 26px;
-    }
-}
-
-
-/* =========================================
-   TABLET / MOBILE LANDSCAPE
-========================================= */
-
-@media screen and (max-width: 1024px)
-and (orientation: landscape) {
-
-    .welcome-page {
-        align-items: center;
-        justify-content: center;
-    }
-
-    .design-container {
-        height: 100dvh;
-        width: auto;
-
-        aspect-ratio: 943 / 1605;
-
-        max-width: 100vw;
-    }
-
-    .design-image {
-        width: 100%;
-        height: 100%;
-
-        object-fit: contain;
-    }
-
-    .get-started-btn {
-        width: 84%;
-        height: 48px;
-
-        bottom: 3%;
-
-        font-size: 15px;
-
-        border-radius: 15px;
-    }
-
-    .get-started-btn .arrow {
-        right: 6%;
-        font-size: 22px;
-    }
-}
-
-
-/* =========================================
-   1025px+
-   Welcome page hidden.
-   index.html redirects to login.html
-========================================= */
-
+/* Keep the portrait welcome artwork crisp and comfortably sized on wide screens. */
 @media screen and (min-width: 1025px) {
+    .welcome-page { padding: 24px; }
 
-    .welcome-page {
-        display: none !important;
+    .design-container {
+        width: min(56.5dvh, 560px);
+        height: min(96dvh, 955px);
+    }
+
+    .get-started-btn {
+        width: 84%;
+        max-width: 470px;
+        height: 58px;
+        font-size: 18px;
     }
 }

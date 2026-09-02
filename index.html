@@ -13,19 +13,19 @@
     <!-- Your existing CSS -->
    <link rel="stylesheet" href="./frontend/css/style.css">
 
-    <!-- Desktop/Laptop Redirect -->
-    <script>
-        if (window.innerWidth >= 1025) {
-            window.location.replace("./login.html");
-        }
-    </script>
 </head>
 
 <body>
 
+    <script>
+        if (window.matchMedia('(min-width: 768px)').matches) {
+            window.location.replace('./login.html');
+        }
+    </script>
+
     <!-- =====================================
          MOBILE + TABLET WELCOME SCREEN
-         Visible up to 1024px
+         Responsive across mobile, tablet, and desktop
     ====================================== -->
 
     <main class="welcome-page">

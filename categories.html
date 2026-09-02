@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories - Squirry Mart</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding-bottom: 82px; font-family: Arial, Helvetica, sans-serif; color: #111; background: #fff; }
+    a { color: inherit; text-decoration: none; }
+    .category-page { width: min(1400px, calc(100% - 56px)); margin: 32px auto 40px; }
+    .page-title { display:flex; align-items:center; justify-content:center; gap:18px; margin:0 0 8px; font-size:clamp(28px, 3vw, 40px); }
+    .page-title::before,.page-title::after { content:""; width:72px; height:2px; background:#ff6500; }
+    .page-subtitle { margin:0 0 30px; text-align:center; color:#656565; font-size:18px; }
+    .category-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; }
+    .category-card { min-height:205px; padding:20px 16px 15px; display:flex; flex-direction:column; border:1px solid #ececec; border-radius:17px; background:#fff; box-shadow:0 3px 10px rgba(0,0,0,.05); transition:transform .2s, box-shadow .2s; }
+    .category-card:hover { transform:translateY(-3px); box-shadow:0 8px 18px rgba(0,0,0,.09); }
+    .category-card img { width:112px; height:112px; margin:0 auto 12px; border-radius:50%; object-fit:contain; background:var(--wash); }
+    .category-card h2 { min-height:38px; margin:0; text-align:center; font-size:16px; line-height:1.18; }
+    .category-meta { margin-top:auto; display:flex; align-items:center; justify-content:space-between; color:#484848; font-size:14px; }
+    .category-meta i { width:37px; height:37px; display:grid; place-items:center; border-radius:50%; color:#111; background:#fff5eb; font-size:19px; }
+    .delivery-promo { min-height:114px; margin-top:30px; padding:14px 25px; display:flex; align-items:center; gap:26px; border-radius:16px; background:#fff2e6; overflow:hidden; }
+    .delivery-promo img { width:142px; height:86px; object-fit:contain; mix-blend-mode:multiply; }
+    .delivery-promo div { flex:1; }
+    .delivery-promo h2 { margin:0 0 6px; color:#ff6500; font-size:27px; }
+    .delivery-promo p { margin:0; font-size:17px; }
+    .shop-now { padding:14px 28px; border-radius:10px; background:#ff6500; color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
+    .benefits { margin-top:24px; padding:18px 12px; display:grid; grid-template-columns:repeat(4,1fr); border:1px solid #ececec; border-radius:16px; box-shadow:0 3px 10px rgba(0,0,0,.04); }
+    .benefit { min-height:45px; padding:0 14px; display:flex; align-items:center; justify-content:center; gap:11px; border-right:1px solid #ddd; font-size:13px; line-height:1.25; }
+    .benefit:last-child { border:0; }.benefit i { font-size:27px; color:var(--tone); }
+    .mobile-menu, .mobile-bottom-nav { display:none; }
+    @media (max-width:760px) {
+      body { padding-bottom:86px; }
+      #site-header .main-header { border:0; box-shadow:none; }
+      #site-header .header-container { min-height:126px; padding:13px 15px 10px; display:grid; grid-template-columns:31px 108px minmax(0,1fr) 47px 42px; grid-template-rows:42px 54px; gap:9px 7px; align-items:center; }
+      #site-header .mobile-menu { display:grid; grid-row:1; place-items:center; padding:0; border:0; background:transparent; font-size:29px; }
+      #site-header .logo { grid-row:1; width:108px; min-width:0; height:42px; }
+      #site-header .brand-logo { width:108px; height:42px; max-width:none; }
+      #site-header .delivery-location { grid-row:1; display:flex; min-width:0; margin:0; gap:5px; overflow:hidden; }
+      #site-header .delivery-location > i:first-child { font-size:26px; }.delivery-location > i:last-child { font-size:12px; }
+      #site-header .delivery-location small { font-size:11px; }.delivery-location strong { max-width:145px; overflow:hidden; font-size:12px; text-overflow:ellipsis; }
+      #site-header .header-actions { grid-row:1; grid-column:4 / 6; margin:0; gap:3px; justify-content:end; }
+      #site-header .header-action { min-width:40px; gap:1px; } #site-header .header-action > i,#site-header .cart-icon > i { font-size:25px; }
+      #site-header .header-action span:last-child { font-size:10px; } #site-header .header-actions .cart-action { display:flex !important; }.header-actions .header-action:last-child { display:none; }
+      #site-header .cart-count { top:-7px; right:-7px; width:18px; height:18px; font-size:10px; }
+      #site-header .search-box { grid-column:1 / -1; grid-row:2; order:initial; width:100%; height:54px; min-width:0; border-radius:15px; }
+      #site-header .search-box input { padding:0 14px; font-size:16px; } #site-header .search-box button { width:72px; flex-basis:72px; font-size:25px; }
+      #site-header .navigation { display:none; }
+      .category-page { width:calc(100% - 28px); margin:27px auto 26px; }
+      .page-title { gap:13px; margin-bottom:7px; font-size:28px; }.page-title::before,.page-title::after { width:58px; }
+      .page-subtitle { margin-bottom:27px; font-size:17px; }
+      .category-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); gap:13px; }
+      .category-card { min-height:219px; padding:14px 9px 11px; border-radius:14px; }
+      .category-card img { width:96px; height:96px; margin-bottom:10px; }.category-card h2 { min-height:38px; font-size:14px; text-align:left; padding-left:3px; }
+      .category-meta { font-size:12px; padding-left:3px; }.category-meta i { width:35px; height:35px; font-size:18px; }
+      .delivery-promo { min-height:105px; margin-top:28px; padding:10px 12px; gap:9px; border-radius:14px; }.delivery-promo img { width:89px; height:78px; }.delivery-promo h2 { font-size:21px; }.delivery-promo p { font-size:14px; }.shop-now { padding:13px 16px; border-radius:9px; font-size:14px; }
+      .benefits { margin-top:22px; padding:13px 3px; border-radius:14px; }.benefit { padding:0 7px; gap:6px; font-size:11px; justify-content:flex-start; }.benefit i { font-size:24px; }
+      .mobile-bottom-nav { position:fixed; z-index:9; right:0; bottom:0; left:0; height:76px; padding:8px 10px 6px; display:grid; grid-template-columns:repeat(5,1fr); align-items:center; background:#fff; border-radius:20px 20px 0 0; box-shadow:0 -3px 15px rgba(0,0,0,.08); }
+      .bottom-nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; font-size:11px; }.bottom-nav-item i { font-size:26px; line-height:1; }.bottom-nav-item.active { color:#ff6500; font-weight:700; }
+    }
+    @media (max-width:380px) { #site-header .header-container { grid-template-columns:26px 91px minmax(0,1fr) 39px 38px; padding-left:10px; padding-right:10px; gap:5px; } #site-header .logo,#site-header .brand-logo { width:91px; }.delivery-location strong{max-width:106px}.category-page{width:calc(100% - 20px)}.category-grid{gap:8px}.category-card{min-height:204px;padding:11px 7px 9px}.category-card img{width:82px;height:82px}.category-card h2{font-size:12px}.category-meta{font-size:11px}.delivery-promo h2{font-size:18px}.delivery-promo p{font-size:12px}.shop-now{padding:12px 11px}.benefit{font-size:9px}.benefit i{font-size:20px} }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="category-page">
+    <h1 class="page-title">Categories</h1>
+    <p class="page-subtitle">Explore all our categories</p>
+    <section class="category-grid" id="categoryGrid" aria-label="Product categories"></section>
+    <section class="delivery-promo" aria-label="Free delivery offer"><img src="frontend/assets/images/offer-fruits-vegetables.jpg" alt="Delivery offer"><div><h2>Free Delivery</h2><p>On orders above ₹499</p></div><a class="shop-now" href="fruits-vegetables.html">Shop Now</a></section>
+    <section class="benefits" aria-label="Shopping benefits">
+      <div class="benefit" style="--tone:#ff6500"><i class="bi bi-award"></i><span>Best Quality<br>Products</span></div><div class="benefit" style="--tone:#19913b"><i class="bi bi-truck"></i><span>On Time<br>Delivery</span></div><div class="benefit" style="--tone:#1673e6"><i class="bi bi-box-seam"></i><span>Easy Returns<br>Policy</span></div><div class="benefit" style="--tone:#8b40eb"><i class="bi bi-shield-check"></i><span>100% Secure<br>Payments</span></div>
+    </section>
+  </main>
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation"><a href="Home.html" class="bottom-nav-item"><i class="bi bi-house"></i><span>Home</span></a><a href="categories.html" class="bottom-nav-item active" aria-current="page"><i class="bi bi-grid-fill"></i><span>Categories</span></a><a href="#searchInput" class="bottom-nav-item"><i class="bi bi-search"></i><span>Search</span></a><a href="profile.html" class="bottom-nav-item"><i class="bi bi-clipboard2"></i><span>Orders</span></a><a href="profile.html" class="bottom-nav-item"><i class="bi bi-person"></i><span>Account</span></a></nav>
+  <script>
+    const imageRoot = 'frontend/assets/images/';
+    const categories = [['Fruits & Vegetables','category-fruits-vegetables.jpg','250+'],['Grocery & Staples','category-grocery-staples.jpg','1200+'],['Dairy & Bakery','category-dairy-bakery.jpg','350+'],['Beverages','category-beverages.jpg','200+'],['Personal Care','category-personal-care.jpg','400+'],['Household','category-household-care.jpg','450+'],['Snacks & Munchies','category-snacks-munchies.jpg','300+'],['Baby Care','category-baby-care.jpg','150+'],['Meat, Fish & Eggs','offer-fruits-vegetables.jpg','100+'],['Breakfast & Instant Food','offer-snacks.jpg','250+'],['Organic & Healthy','category-fruits-vegetables.jpg','180+'],['Bakery & Sweets','category-dairy-bakery.jpg','200+']];
+    document.getElementById('categoryGrid').innerHTML = categories.map(([name,image,count],index) => `<a class="category-card" href="fruits-vegetables.html" style="--wash:${['#fff1ed','#fff6e7','#f1f5fb','#f9eff9','#f8edfa','#eef9f8'][index % 6]}"><img src="${imageRoot + image}" alt="${name}"><h2>${name}</h2><span class="category-meta">${count} Items <i class="bi bi-chevron-right"></i></span></a>`).join('');
+    fetch('header.html').then(response => response.text()).then(html => { document.getElementById('site-header').innerHTML = html; const header = document.querySelector('#site-header .header-container'); header.insertAdjacentHTML('afterbegin', '<button class="mobile-menu" type="button" aria-label="Open menu"><i class="bi bi-list"></i></button>'); document.querySelectorAll('#site-header .nav-container a').forEach(link => link.classList.toggle('active', link.getAttribute('href') === 'categories.html')); });
+  </script>
+</body>
+</html>

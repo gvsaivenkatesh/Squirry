@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ff5a00">
+  <title>Squirry Food — Responsive Profile</title>
+  <style>
+    :root {
+      --orange: #ff5a00;
+      --orange-deep: #f04400;
+      --orange-soft: #fff0e7;
+      --cream: #fff8ee;
+      --ink: #171b20;
+      --muted: #68707d;
+      --line: #e9ebee;
+      --surface: #ffffff;
+      --page: #f7f8fa;
+      --success: #20a93b;
+      --blue: #2f80ed;
+      --shadow: 0 5px 22px rgba(31, 38, 50, .07);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --header-h: 82px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      scrollbar-gutter: stable;
+    }
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: visible;
+      touch-action: pan-y;
+      color: var(--ink);
+      background: var(--page);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    svg { display: block; }
+    .icon { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.85; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-lg { width: 30px; height: 30px; }
+    .icon-xl { width: 36px; height: 36px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .mobile-only { display: none; }
+
+    .desktop-header {
+      height: var(--header-h);
+      padding: 0 26px;
+      display: grid;
+      grid-template-columns: 270px minmax(360px, 1fr) auto;
+      align-items: center;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 12px rgba(35,40,48,.04);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark {
+      width: 55px; height: 55px; flex: 0 0 auto;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      color: #783516;
+      background: radial-gradient(circle at 35% 28%, #fff3c6 0 20%, #ff9e1a 45%, #ed4b00 100%);
+      box-shadow: inset 0 0 0 4px #fff, 0 4px 12px rgba(239,80,0,.18);
+      font-size: 34px;
+    }
+    .brand-copy { line-height: 1; }
+    .brand-name { display: block; font-family: Georgia, serif; font-size: 27px; font-weight: 800; color: #5d2a18; letter-spacing: -.7px; }
+    .brand-sub { display: block; color: var(--orange); font-weight: 800; font-style: italic; text-align: right; font-size: 13px; }
+
+    .search-bar {
+      height: 48px;
+      max-width: 920px;
+      display: grid;
+      grid-template-columns: 190px 1fr 64px;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid #dfe2e6;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .category-select {
+      height: 100%; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      border-right: 1px solid var(--line);
+      color: #313640; font-size: 14px;
+    }
+    .search-bar input { min-width: 0; height: 100%; border: 0; outline: 0; padding: 0 18px; color: var(--ink); background: transparent; }
+    .search-bar input::placeholder { color: #98a0ad; }
+    .search-button { height: 100%; border: 0; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--orange), #ff3d00); cursor: pointer; }
+    .header-actions { display: flex; align-items: center; gap: 22px; }
+    .header-action, .profile-menu {
+      position: relative; border: 0; background: transparent; padding: 4px;
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
+    }
+    .header-action span:last-child, .profile-menu span { font-size: 14px; white-space: nowrap; }
+    .badge {
+      min-width: 19px; height: 19px; padding: 0 5px;
+      display: grid; place-items: center;
+      position: absolute; top: -5px; left: 21px;
+      border: 2px solid #fff; border-radius: 999px;
+      color: #fff; background: var(--orange); font-size: 10px; font-weight: 800;
+    }
+    .mini-avatar { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--orange-soft); border: 1px solid #ffd4bd; font-size: 25px; }
+
+    .mobile-header { display: none; }
+    .app-shell {
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 28px 26px 32px;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr) 310px;
+      align-items: start;
+      gap: 24px;
+    }
+
+    .panel { background: var(--surface); border: 1px solid rgba(34,40,49,.07); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+    .left-sidebar {
+      position: sticky;
+      top: 20px;
+      padding: 14px;
+    }
+    .side-nav { display: grid; gap: 4px; }
+    .nav-item {
+      width: 100%; height: 50px; padding: 0 14px;
+      display: flex; align-items: center; gap: 15px;
+      border: 0; border-radius: 10px;
+      color: #2f343c; background: transparent;
+      font-size: 15px; text-align: left; cursor: pointer;
+      transition: .2s ease;
+    }
+    .nav-item:hover { color: var(--orange); background: #fff7f2; transform: translateX(2px); }
+    .nav-item.active { color: var(--orange); background: linear-gradient(90deg, #fff0e7, #fff7f2); font-weight: 700; }
+    .nav-item .icon { flex: 0 0 auto; }
+    .nav-divider { height: 1px; margin: 10px 0; background: var(--line); }
+    .nav-item.logout { color: #e52c22; }
+
+    .referral-card {
+      min-height: 215px; margin-top: 16px; padding: 18px;
+      position: relative; overflow: hidden;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #fff7e9, #ffedd5);
+      border: 1px solid #ffe6c4;
+    }
+    .referral-card::after { content: "🎁"; position: absolute; right: 12px; bottom: 12px; font-size: 67px; transform: rotate(-5deg); }
+    .referral-card h3 { margin: 0 0 8px; font-size: 18px; color: #64321b; }
+    .referral-card p { max-width: 160px; margin: 0 0 20px; color: #565e68; font-size: 14px; line-height: 1.6; }
+    .small-cta { position: relative; z-index: 1; border: 0; border-radius: 9px; padding: 10px 15px; color: #fff; background: var(--orange); font-size: 14px; font-weight: 700; cursor: pointer; }
+
+    .main-content { min-width: 0; display: grid; gap: 18px; }
+    .profile-hero {
+      min-height: 200px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.4fr);
+      align-items: center;
+      gap: 22px;
+      position: relative; overflow: hidden;
+      border-radius: 18px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 86% 16%, rgba(255,208,71,.26) 0 6%, transparent 6.5%),
+        radial-gradient(circle at 95% 30%, rgba(255,255,255,.08) 0 14%, transparent 14.5%),
+        linear-gradient(120deg, #ff990f 0%, #ff6b00 55%, #f94b00 100%);
+      box-shadow: 0 12px 30px rgba(250,91,0,.18);
+    }
+    .profile-hero::after {
+      content: ""; position: absolute; width: 290px; height: 290px; right: -105px; top: -165px;
+      border: 45px solid rgba(255,255,255,.05); border-radius: 50%;
+    }
+    .profile-person { display: flex; align-items: center; gap: clamp(14px, 1.5vw, 22px); min-width: 0; position: relative; z-index: 1; }
+    .avatar-wrap { position: relative; flex: 0 0 auto; }
+    .avatar {
+      width: 132px; height: 132px;
+      display: grid; place-items: center;
+      border: 7px solid rgba(255,255,255,.94); border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, #fff8d7 0 15%, #ffd879 52%, #ff9e26 100%);
+      box-shadow: 0 8px 18px rgba(112,48,3,.16);
+      font-size: 74px;
+    }
+    .camera-button {
+      width: 39px; height: 39px; position: absolute; right: -1px; bottom: 3px;
+      display: grid; place-items: center; border: 0; border-radius: 50%;
+      color: var(--orange); background: #fff; box-shadow: 0 4px 12px rgba(80,42,12,.2); cursor: pointer;
+    }
+    .camera-button .icon { width: 20px; height: 20px; }
+    .person-copy { min-width: 0; }
+    .name-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .name-row h1 { margin: 0; font-size: clamp(26px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.5px; }
+    .premium-chip { padding: 5px 11px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; color: var(--orange); background: #fff; font-size: 13px; font-weight: 750; }
+    .person-copy p { margin: 7px 0 0; font-size: 16px; }
+    .trust-line { margin-top: 15px; display: flex; align-items: center; gap: 7px; font-size: 13px; opacity: .95; }
+    .trust-line .icon { width: 18px; height: 18px; }
+
+    .profile-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(6px, .75vw, 10px); min-width: 0; position: relative; z-index: 1; }
+    .stat {
+      min-width: 0; min-height: 116px; padding: 13px 8px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,.38); border-radius: 12px;
+      background: rgba(255,255,255,.06); text-align: center;
+    }
+    .stat strong { margin-top: 7px; font-size: 20px; line-height: 1; }
+    .stat span { margin-top: 7px; font-size: 13px; }
+
+    .orders-panel { padding: 20px 22px; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .section-heading h2, .section-title { margin: 0; font-size: 20px; letter-spacing: -.2px; }
+    .link-button { border: 0; padding: 6px; display: inline-flex; align-items: center; gap: 7px; color: var(--orange); background: transparent; font-weight: 650; cursor: pointer; }
+    .link-button .icon { width: 18px; height: 18px; }
+    .order-statuses { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .order-status {
+      min-height: 68px; padding: 8px 12px; position: relative;
+      border: 0; border-left: 1px solid var(--line); background: transparent;
+      display: flex; align-items: center; justify-content: center; gap: 14px; cursor: pointer;
+    }
+    .order-status:first-child { border-left: 0; }
+    .order-status.active { border-radius: 10px; border-left-color: transparent; color: var(--orange); background: var(--orange-soft); }
+    .order-status .status-copy { color: var(--ink); font-size: 14px; }
+    .count-dot {
+      min-width: 20px; height: 20px; padding: 0 5px; position: absolute; left: calc(50% + 8px); top: 0;
+      display: grid; place-items: center; border-radius: 999px; color: #fff; background: var(--orange); font-size: 10px; font-weight: 800;
+    }
+
+    .benefit-banner {
+      min-height: 90px; padding: 16px 28px;
+      display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 18px;
+      position: relative; overflow: hidden;
+      border-radius: 16px; border: 1px solid #ffe7c7;
+      background: linear-gradient(90deg, #fff2de, #fffaf3);
+      box-shadow: 0 3px 12px rgba(72,44,19,.05);
+    }
+    .benefit-banner::after { content: "✦  ✧  ✦"; position: absolute; right: 29%; color: #ffd395; font-size: 31px; letter-spacing: 12px; }
+    .gift-visual { font-size: 65px; filter: drop-shadow(0 5px 5px rgba(210,73,0,.14)); }
+    .benefit-copy { position: relative; z-index: 1; }
+    .benefit-copy h3 { margin: 0 0 4px; font-size: 20px; }
+    .benefit-copy p { margin: 0; color: #4f5660; }
+    .primary-button {
+      min-height: 45px; padding: 0 20px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 0; border-radius: 10px; color: #fff;
+      background: linear-gradient(135deg, var(--orange), #f23b00);
+      font-weight: 700; box-shadow: 0 7px 15px rgba(255,80,0,.18); cursor: pointer;
+    }
+    .primary-button .icon { width: 18px; height: 18px; }
+
+    .settings-section { display: grid; gap: 10px; }
+    .settings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .setting-card {
+      min-height: 90px; padding: 17px 18px;
+      display: grid; grid-template-columns: 32px 1fr 20px; align-items: start; gap: 14px;
+      border: 1px solid var(--line); border-radius: 13px; background: #fff;
+      box-shadow: 0 3px 12px rgba(32,40,50,.04); text-align: left; cursor: pointer; transition: .2s ease;
+    }
+    .setting-card:hover { border-color: #ffc5a5; box-shadow: 0 8px 18px rgba(255,86,0,.08); transform: translateY(-2px); }
+    .setting-card > .icon:first-child { color: var(--orange); }
+    .setting-card .icon:last-child { width: 18px; height: 18px; margin-top: 4px; }
+    .setting-card strong { display: block; margin-bottom: 3px; font-size: 14px; }
+    .setting-card small { display: block; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .mobile-more { display: none; }
+    .mobile-logout-button { display: none; }
+
+    .right-rail {
+      display: grid;
+      gap: 16px;
+      position: sticky;
+      top: 20px;
+    }
+    .rail-card { padding: 18px; }
+    .rail-card h3 { margin: 0; font-size: 17px; }
+    .rail-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .rail-heading button { border: 0; padding: 3px; color: var(--orange); background: transparent; cursor: pointer; }
+    .activity-list, .address-list { display: grid; }
+    .activity-item, .address-item { padding: 12px 0; display: grid; grid-template-columns: 36px 1fr; gap: 11px; border-top: 1px solid var(--line); }
+    .activity-item:first-child, .address-item:first-child { border-top: 0; }
+    .activity-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; }
+    .activity-icon .icon { width: 18px; height: 18px; }
+    .activity-icon.green { color: var(--success); background: #eaf8ec; }
+    .activity-icon.blue { color: var(--blue); background: #eaf3ff; }
+    .activity-icon.orange { color: #f29c12; background: #fff3e3; }
+    .activity-main { margin: 0; font-size: 14px; }
+    .activity-meta { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .address-item .icon { margin-top: 2px; }
+    .address-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; }
+    .default-chip { padding: 2px 7px; border-radius: 999px; color: #545b65; background: #f0f1f3; font-size: 10px; font-weight: 500; }
+    .address-item p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .outline-button { width: 100%; min-height: 44px; border: 1px dashed #ffb78f; border-radius: 9px; color: var(--orange); background: #fff; cursor: pointer; }
+    .payment-card { padding: 4px 0 16px; display: grid; grid-template-columns: 43px 1fr auto; align-items: center; gap: 11px; }
+    .bank-card-icon { width: 38px; height: 27px; padding: 4px; display: grid; align-items: end; border: 3px solid #087284; border-radius: 4px; }
+    .bank-card-icon::after { content: ""; height: 5px; background: #e83936; }
+    .payment-card strong { font-size: 14px; }
+    .payment-card small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; letter-spacing: 1px; }
+    .payment-default { padding: 3px 7px; border-radius: 999px; color: #16962e; background: #e9f8e9; font-size: 10px; }
+
+    .bottom-nav { display: none; }
+    .toast {
+      position: fixed; left: 50%; bottom: 28px; z-index: 100;
+      padding: 12px 18px; border-radius: 999px;
+      color: #fff; background: #242830; box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      font-size: 14px; opacity: 0; pointer-events: none; transform: translate(-50%, 16px); transition: .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1500px) {
+      .desktop-header { grid-template-columns: 230px minmax(320px, 1fr) auto; gap: 18px; }
+      .header-actions { gap: 14px; }
+      .header-action span:last-child { display: none; }
+      .app-shell { grid-template-columns: 220px minmax(0,1fr) 286px; gap: 18px; padding-inline: 18px; }
+      .profile-hero { grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); }
+      .avatar { width: 112px; height: 112px; font-size: 63px; }
+      .profile-person { gap: 16px; }
+      .settings-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Tablet and medium desktop: 768px–1399px */
+    @media (min-width: 768px) and (max-width: 1399px) {
+      :root { --header-h: 72px; }
+      .desktop-header { height: var(--header-h); padding: 0 18px; grid-template-columns: 74px minmax(280px,1fr) auto; gap: 14px; }
+      .brand-copy { display: none; }
+      .brand-mark { width: 48px; height: 48px; font-size: 29px; }
+      .search-bar { max-width: none; grid-template-columns: 1fr 56px; }
+      .category-select { display: none; }
+      .header-actions { gap: 10px; }
+      .profile-menu span, .profile-menu > .icon { display: none; }
+      .header-action { padding: 7px; }
+      .mini-avatar { width: 39px; height: 39px; }
+      .app-shell { grid-template-columns: 78px minmax(0, 1fr); gap: 16px; padding: 20px 16px 28px; }
+      .left-sidebar { top: 20px; padding: 10px; }
+      .nav-item { height: 52px; padding: 0; justify-content: center; }
+      .nav-item span { display: none; }
+      .nav-item:hover { transform: none; }
+      .referral-card { display: none; }
+      .right-rail { display: none; }
+      .profile-hero { min-height: 270px; grid-template-columns: 1fr; gap: 18px; padding: 22px; }
+      .profile-person { justify-content: flex-start; }
+      .profile-stats { grid-template-columns: repeat(5, 1fr); }
+      .stat { min-height: 92px; }
+      .stat .icon { width: 25px; height: 25px; }
+      .orders-panel { padding: 18px; }
+      .order-status { flex-direction: column; gap: 6px; text-align: center; }
+      .count-dot { left: 56%; top: -2px; }
+      .benefit-banner { grid-template-columns: 85px 1fr auto; padding: 14px 18px; }
+      .gift-visual { font-size: 54px; }
+      .benefit-banner::after { display: none; }
+      .settings-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Mobile: 320px–767px */
+    @media (max-width: 767px) {
+      :root { --page: #fff; }
+      html {
+        height: 100%;
+        overflow-y: hidden;
+      }
+      body {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        padding-bottom: 0;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+      .desktop-header, .left-sidebar, .right-rail { display: none; }
+      .desktop-only-chip, .desktop-settings-copy, .wide-copy { display: none; }
+      .mobile-only { display: block; }
+      .mobile-header {
+        height: 88px; padding: 18px clamp(16px, 4.5vw, 28px) 8px;
+        display: flex; align-items: center; justify-content: space-between;
+        background: #fff;
+      }
+      .mobile-header h1 { margin: 0; font-size: clamp(28px, 8vw, 38px); letter-spacing: -.8px; }
+      .mobile-header-actions { display: flex; gap: 12px; }
+      .round-icon-button { width: 43px; height: 43px; position: relative; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; }
+      .round-icon-button .badge { left: 25px; top: -3px; }
+      .app-shell {
+        display: block;
+        width: 100%;
+        padding: 12px clamp(14px, 3.7vw, 28px) calc(112px + env(safe-area-inset-bottom));
+      }
+      .main-content { gap: 18px; }
+      .profile-hero { min-height: 306px; padding: 24px 22px 20px; display: block; border-radius: 19px; }
+      .profile-hero::after { width: 230px; height: 230px; right: -96px; top: -126px; }
+      .profile-person { align-items: center; gap: 16px; }
+      .avatar { width: 98px; height: 98px; border-width: 5px; font-size: 55px; }
+      .camera-button { width: 34px; height: 34px; right: -3px; bottom: -1px; }
+      .name-row { gap: 7px; }
+      .name-row h1 { font-size: clamp(23px, 6vw, 31px); }
+      .premium-chip { padding: 4px 9px; font-size: 12px; }
+      .person-copy p { margin-top: 5px; font-size: clamp(13px, 3.7vw, 16px); white-space: nowrap; }
+      .trust-line { display: none; }
+      .profile-stats { margin-top: 31px; grid-template-columns: repeat(4, 1fr); gap: 0; }
+      .stat { min-width: 0; min-height: 77px; padding: 2px 6px; border: 0; border-left: 1px solid rgba(255,255,255,.35); border-radius: 0; background: transparent; }
+      .stat:first-child { border-left: 0; }
+      .stat:nth-child(5) { display: none; }
+      .stat .icon { width: 29px; height: 29px; }
+      .stat strong { margin-top: 3px; font-size: 21px; }
+      .stat span { margin-top: 2px; font-size: 12px; }
+      .orders-panel { padding: 22px 17px 20px; border-radius: 17px; }
+      .section-heading h2 { font-size: 22px; }
+      .link-button { font-size: 14px; }
+      .order-statuses { margin-top: 22px; }
+      .order-status { min-width: 0; min-height: 83px; padding: 4px 1px; flex-direction: column; gap: 8px; border-left: 0; }
+      .order-status.active { color: var(--ink); background: transparent; }
+      .order-status .icon { width: 29px; height: 29px; }
+      .order-status .status-copy { font-size: 12px; white-space: nowrap; }
+      .count-dot { left: 55%; top: -4px; }
+      .benefit-banner { min-height: 106px; padding: 14px 16px; grid-template-columns: 72px 1fr auto; gap: 11px; border-radius: 16px; }
+      .gift-visual { font-size: 51px; }
+      .benefit-copy h3 { font-size: 17px; line-height: 1.25; }
+      .benefit-copy p { font-size: 13px; line-height: 1.35; }
+      .benefit-banner::after { display: none; }
+      .primary-button { min-height: 44px; padding: 0 14px; font-size: 14px; white-space: nowrap; }
+      .settings-section { gap: 10px; margin-top: 8px; }
+      .section-title { padding-left: 15px; font-size: 22px; }
+      .settings-grid, .mobile-more-grid { display: block; overflow: hidden; border: 1px solid rgba(34,40,49,.06); border-radius: 17px; background: #fff; box-shadow: var(--shadow); }
+      .setting-card { width: calc(100% - 30px); min-height: 69px; margin: 0 15px; padding: 17px 0; grid-template-columns: 29px 1fr 20px; align-items: center; border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none; }
+      .setting-card:first-child { border-top: 0; }
+      .setting-card:hover { transform: none; box-shadow: none; }
+      .setting-card strong { margin: 0; font-size: 16px; font-weight: 500; }
+      .setting-card small { display: none; }
+      .setting-card > .icon:first-child { color: #343b43; }
+      .desktop-extra-card { display: none; }
+      .mobile-more { display: grid; gap: 10px; margin-top: 8px; }
+      .mobile-logout-button {
+        width: 100%;
+        min-height: 54px;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid #ffd0cc;
+        border-radius: 14px;
+        color: #d92d20;
+        background: #fff4f2;
+        font-weight: 750;
+        box-shadow: 0 4px 14px rgba(217, 45, 32, .08);
+        cursor: pointer;
+      }
+      .mobile-logout-button .icon { width: 22px; height: 22px; }
+      .bottom-nav {
+        min-height: 76px; padding: 8px clamp(7px, 3vw, 22px) calc(7px + env(safe-area-inset-bottom));
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+        display: grid; grid-template-columns: repeat(5, 1fr); align-items: center;
+        background: rgba(255,255,255,.97); border-top: 1px solid var(--line); box-shadow: 0 -5px 18px rgba(35,39,45,.06); backdrop-filter: blur(12px);
+      }
+      .bottom-nav button { min-width: 0; border: 0; display: grid; justify-items: center; gap: 3px; color: #535b65; background: transparent; font-size: 11px; cursor: pointer; }
+      .bottom-nav button.active { color: var(--orange); font-weight: 700; }
+      .bottom-nav .icon { width: 25px; height: 25px; }
+      .bottom-nav button { position: relative; }
+      .bottom-nav .badge { left: 57%; top: -7px; }
+      .toast { bottom: calc(94px + env(safe-area-inset-bottom)); max-width: calc(100% - 30px); text-align: center; }
+    }
+
+    @media (max-width: 520px) {
+      .profile-hero { min-height: 286px; padding-inline: 17px; }
+      .avatar { width: 86px; height: 86px; font-size: 48px; }
+      .benefit-banner { grid-template-columns: 58px 1fr; }
+      .gift-visual { font-size: 43px; }
+      .benefit-banner .primary-button { grid-column: 1 / -1; width: 100%; }
+      .benefit-banner { min-height: 148px; }
+    }
+
+    @media (max-width: 375px) {
+      .app-shell { padding-inline: 12px; }
+      .mobile-header { padding-inline: 14px; }
+      .mobile-header h1 { font-size: 29px; }
+      .mobile-header-actions { gap: 4px; }
+      .profile-hero { min-height: 274px; padding: 20px 13px 15px; }
+      .avatar { width: 74px; height: 74px; font-size: 41px; }
+      .camera-button { width: 29px; height: 29px; }
+      .name-row h1 { font-size: 21px; }
+      .premium-chip { font-size: 10px; }
+      .person-copy p { font-size: 12px; }
+      .profile-stats { margin-top: 26px; }
+      .stat .icon { width: 25px; height: 25px; }
+      .stat strong { font-size: 18px; }
+      .stat span { font-size: 11px; }
+      .orders-panel { padding-inline: 12px; }
+      .order-status .status-copy { font-size: 10px; }
+      .order-status .icon { width: 25px; height: 25px; }
+      .link-button { font-size: 12px; }
+      .bottom-nav { padding-inline: 2px; }
+      .bottom-nav button { font-size: 10px; }
+    }
+
+    /* Reusable site header and navigation */
+    .squirry-site-header {
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      box-shadow: 0 2px 12px rgba(35, 40, 48, .04);
+    }
+
+    .squirry-header-row {
+      width: 100%;
+      max-width: 1500px;
+      min-height: 95px;
+      margin: 0 auto;
+      padding: 14px 38px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .squirry-logo {
+      width: 220px;
+      min-width: 220px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .squirry-logo img {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      height: 62px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .squirry-delivery {
+      min-width: 230px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .squirry-delivery > .icon { color: var(--orange); }
+    .squirry-delivery-copy { display: flex; flex-direction: column; }
+    .squirry-delivery-copy small { color: #666; font-size: 12px; }
+    .squirry-delivery-copy strong { font-size: 14px; white-space: nowrap; }
+
+    .squirry-search {
+      height: 50px;
+      min-width: 220px;
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .squirry-search input {
+      width: 100%;
+      min-width: 0;
+      padding: 0 18px;
+      border: 0;
+      outline: 0;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .squirry-search button {
+      width: 58px;
+      flex: 0 0 58px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      color: #fff;
+      background: var(--orange);
+      cursor: pointer;
+    }
+
+    .squirry-header-actions { display: flex; align-items: center; gap: 25px; }
+    .squirry-header-action {
+      min-width: 62px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+      color: #111;
+      text-decoration: none;
+    }
+    .squirry-header-action > span:last-child { font-size: 13px; white-space: nowrap; }
+    .squirry-header-action:hover,
+    .squirry-header-action.active { color: var(--orange); }
+    .squirry-header-action.active {
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: var(--orange-soft);
+      font-weight: 700;
+    }
+    .squirry-cart-icon { position: relative; }
+    .squirry-cart-count {
+      width: 19px;
+      height: 19px;
+      position: absolute;
+      top: -9px;
+      right: -10px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--orange);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .squirry-navigation { border-top: 1px solid #f4f4f4; background: #fff; }
+    .squirry-nav-row {
+      width: 100%;
+      max-width: 1500px;
+      min-height: 55px;
+      margin: 0 auto;
+      padding: 0 38px;
+      display: flex;
+      align-items: center;
+      gap: 35px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .squirry-nav-row::-webkit-scrollbar { display: none; }
+    .squirry-nav-row a {
+      height: 55px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      flex: 0 0 auto;
+      color: #111;
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .squirry-nav-row a:hover,
+    .squirry-nav-row a.active { color: var(--orange); }
+    .squirry-nav-row a.active::after {
+      content: "";
+      height: 2px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: var(--orange);
+    }
+    .squirry-nav-row .squirry-all-categories {
+      min-width: 200px;
+      height: 45px;
+      padding: 0 18px;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--orange);
+      font-weight: 650;
+    }
+    .squirry-nav-row .squirry-all-categories:hover { color: #fff; background: var(--orange-deep); }
+
+    @media (max-width: 1199px) {
+      .squirry-header-row,
+      .squirry-nav-row { padding-left: 24px; padding-right: 24px; }
+      .squirry-header-row { gap: 15px; }
+      .squirry-logo { width: 180px; min-width: 180px; height: 60px; }
+      .squirry-logo img { max-width: 180px; height: 55px; }
+      .squirry-delivery { min-width: 180px; }
+      .squirry-header-actions { gap: 12px; }
+      .squirry-nav-row { gap: 20px; }
+    }
+
+    @media (max-width: 900px) {
+      .squirry-header-row { flex-wrap: wrap; }
+      .squirry-delivery { margin-left: auto; }
+      .squirry-search { order: 3; flex-basis: 100%; }
+      .squirry-logo { width: 160px; min-width: 160px; height: 55px; }
+      .squirry-logo img { max-width: 160px; height: 50px; }
+    }
+
+    @media (max-width: 767px) {
+      .squirry-header-row { padding: 12px 15px; }
+      .squirry-logo { width: 138px; min-width: 138px; height: 50px; }
+      .squirry-logo img { max-width: 138px; height: 45px; }
+      .squirry-delivery { display: none; }
+      .squirry-header-actions { margin-left: auto; gap: 4px; }
+      .squirry-header-action { min-width: 40px; }
+      .squirry-header-action > span:last-child { font-size: 9px; }
+      .squirry-header-action.cart-link,
+      .squirry-header-action.profile-link { display: none; }
+      .squirry-search { order: 3; flex: 0 0 100%; width: 100%; height: 44px; }
+      .squirry-search input { font-size: 13px; }
+      .squirry-search button { width: 48px; flex-basis: 48px; }
+      .squirry-nav-row { min-height: 48px; padding: 0 15px; gap: 20px; }
+      .squirry-nav-row a { height: 48px; font-size: 11px; }
+      .squirry-nav-row .squirry-all-categories { min-width: 140px; height: 40px; font-size: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .squirry-logo { width: 112px; min-width: 112px; height: 44px; }
+      .squirry-logo img { max-width: 112px; height: 40px; }
+      .squirry-header-action { min-width: 35px; }
+    }
+
+    /* Keep the page content aligned with the header container */
+    @media (min-width: 1200px) {
+      .app-shell { padding-left: 38px; padding-right: 38px; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .app-shell { padding-left: 24px; padding-right: 24px; }
+    }
+
+    @media (max-width: 767px) {
+      .app-shell { padding-left: 15px; padding-right: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="squirry-site-header">
+    <div class="squirry-header-row">
+      <a href="Home.html" class="squirry-logo" aria-label="Squirry Food home">
+        <img src="frontend/assets/images/logo.jpeg" alt="Squirry Food logo">
+      </a>
+
+      <div class="squirry-delivery">
+        <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+        <div class="squirry-delivery-copy">
+          <small>Deliver to</small>
+          <strong>12, Green Park, Mumbai</strong>
+        </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>
+      </div>
+
+      <form class="squirry-search" role="search" action="#" method="get">
+        <label class="sr-only" for="headerSearch">Search products</label>
+        <input id="headerSearch" name="q" type="search" placeholder="Search for products, categories...">
+        <button type="submit" aria-label="Search">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        </button>
+      </form>
+
+      <div class="squirry-header-actions">
+        <a href="profile.html" class="squirry-header-action wishlist-link">
+          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+          <span>Wishlist</span>
+        </a>
+        <a href="fruits-vegetables.html" class="squirry-header-action cart-link">
+          <span class="squirry-cart-icon">
+            <svg class="icon" aria-hidden="true"><use href="#i-cart"/></svg>
+            <span class="squirry-cart-count">3</span>
+          </span>
+          <span>Cart</span>
+        </a>
+        <a href="profile.html" class="squirry-header-action profile-link active" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>
+          <span>Profile</span>
+        </a>
+      </div>
+    </div>
+
+    <nav class="squirry-navigation" aria-label="Main navigation">
+      <div class="squirry-nav-row">
+        <a href="categories.html" class="squirry-all-categories">
+          <svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>
+          All Categories
+        </a>
+        <a href="Home.html">Home</a>
+        <a href="fruits-vegetables.html">Fruits &amp; Vegetables</a>
+        <a href="#">Grocery &amp; Staples</a>
+        <a href="#">Dairy &amp; Bakery</a>
+        <a href="#">Beverages</a>
+        <a href="#">Personal Care</a>
+        <a href="#">Household</a>
+        <a href="#">Offers</a>
+        <a href="#">Blog</a>
+      </div>
+    </nav>
+  </header>
+
+  <svg class="sr-only" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="m3.5 7.5 8.5 4.8 8.5-4.8M12 22V12.3M20.5 17V7L12 2 3.5 7v10l8.5 5 8.5-5Z"/><path d="m7.7 4.5 8.6 5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.4 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9L12 2.5Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M9 12h6M10 12V9a2 2 0 0 1 4 0v3"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 7v15M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7Zm0 0h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7Z"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2M18 19c0 1.7-1.3 3-3 3h-3"/><path d="M4 14a2 2 0 0 1 2-2h1v7H6a2 2 0 0 1-2-2v-3Zm16 0a2 2 0 0 0-2-2h-1v7h1a2 2 0 0 0 2-2v-3Z"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M14 4h4a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 5 13 3h-2L9.5 5H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4.5Z"/><circle cx="12" cy="12" r="3.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 5h11v11H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></symbol>
+    <symbol id="i-return" viewBox="0 0 24 24"><path d="m9 7-5 5 5 5"/><path d="M20 18a8 8 0 0 0-8-8H4"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="m20.5 13.5-7 7L3.5 10.5V3.5h7l10 10Z"/><circle cx="8" cy="8" r="1.2"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H19v16H5.5A2.5 2.5 0 0 1 3 17.5v-11Z"/><path d="M3 8h16M15 12h6v5h-6a2.5 2.5 0 0 1 0-5Z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-6v-6H9v6H3V11Z"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.8 1.8 0 0 0 .4 2l.1.1-2.8 2.8-.1-.1a1.8 1.8 0 0 0-2-.4 1.8 1.8 0 0 0-1 1.6v.2h-4V21a1.8 1.8 0 0 0-1-1.6 1.8 1.8 0 0 0-2 .4l-.1.1-2.8-2.8.1-.1a1.8 1.8 0 0 0 .4-2A1.8 1.8 0 0 0 3 14H2.8v-4H3a1.8 1.8 0 0 0 1.6-1 1.8 1.8 0 0 0-.4-2l-.1-.1 2.8-2.8.1.1a1.8 1.8 0 0 0 2 .4A1.8 1.8 0 0 0 10 3V2.8h4V3a1.8 1.8 0 0 0 1 1.6 1.8 1.8 0 0 0 2-.4l.1-.1 2.8 2.8-.1.1a1.8 1.8 0 0 0-.4 2 1.8 1.8 0 0 0 1.6 1h.2v4H21a1.8 1.8 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 15h6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="left-sidebar panel" aria-label="Profile navigation">
+      <nav class="side-nav">
+        <button class="nav-item active" data-label="My Account"><svg class="icon"><use href="#i-grid"/></svg><span>My Account</span></button>
+        <button class="nav-item" data-label="My Orders"><svg class="icon"><use href="#i-truck"/></svg><span>My Orders</span></button>
+        <button class="nav-item" data-label="Addresses"><svg class="icon"><use href="#i-pin"/></svg><span>Addresses</span></button>
+        <button class="nav-item" data-label="Payment Methods"><svg class="icon"><use href="#i-card"/></svg><span>Payment Methods</span></button>
+        <button class="nav-item" data-label="Wishlist"><svg class="icon"><use href="#i-heart"/></svg><span>Wishlist</span></button>
+        <button class="nav-item" data-label="My Reviews"><svg class="icon"><use href="#i-star"/></svg><span>My Reviews</span></button>
+        <button class="nav-item" data-label="Security"><svg class="icon"><use href="#i-shield"/></svg><span>Security</span></button>
+        <button class="nav-item" data-label="Refer & Earn"><svg class="icon"><use href="#i-gift"/></svg><span>Refer & Earn</span></button>
+        <button class="nav-item" data-label="Help Center"><svg class="icon"><use href="#i-headset"/></svg><span>Help Center</span></button>
+        <div class="nav-divider"></div>
+        <button class="nav-item logout action" data-action="Logout"><svg class="icon"><use href="#i-logout"/></svg><span>Logout</span></button>
+      </nav>
+      <div class="referral-card">
+        <h3>Refer & Earn</h3>
+        <p>Invite your friends and earn exciting rewards!</p>
+        <button class="small-cta action" data-action="Referral link copied">Refer Now</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="profile-hero" aria-labelledby="profileName">
+        <div class="profile-person">
+          <div class="avatar-wrap">
+            <div class="avatar" aria-label="John Doe profile image">🐿️</div>
+            <button class="camera-button action" data-action="Change profile photo" aria-label="Change profile photo"><svg class="icon"><use href="#i-camera"/></svg></button>
+          </div>
+          <div class="person-copy">
+            <div class="name-row"><h1 id="profileName">John Doe</h1><span class="premium-chip">♛ <span class="desktop-only-chip">Premium Member</span><span class="mobile-only">Premium</span></span></div>
+            <p>john.doe@example.com</p>
+            <p>+91 98765 43210</p>
+            <div class="trust-line"><svg class="icon"><use href="#i-shield"/></svg>Safe • Reliable • On-time</div>
+          </div>
+        </div>
+        <div class="profile-stats" aria-label="Profile statistics">
+          <div class="stat"><svg class="icon icon-lg"><use href="#i-package"/></svg><strong>120</strong><span>Orders</span></div>
+          <div class="stat"><svg class="icon icon-lg"><use href="#i-heart"/></svg><strong>24</strong><span>Wishlist</span></div>
+          <div class="stat"><svg class="icon icon-lg"><use href="#i-star"/></svg><strong>4.8</strong><span>Rating</span></div>
+          <div class="stat"><svg class="icon icon-lg"><use href="#i-tag"/></svg><strong>12</strong><span>Coupons</span></div>
+          <div class="stat"><svg class="icon icon-lg"><use href="#i-wallet"/></svg><strong>₹1,250</strong><span>Wallet Balance</span></div>
+        </div>
+      </section>
+
+      <section class="orders-panel panel" aria-labelledby="ordersTitle">
+        <div class="section-heading"><h2 id="ordersTitle">My Orders</h2><button class="link-button action" data-action="All orders"><span class="wide-copy">View All Orders</span><span class="mobile-only">View All</span><svg class="icon"><use href="#i-chevron"/></svg></button></div>
+        <div class="order-statuses">
+          <button class="order-status active" data-label="All Orders"><svg class="icon icon-lg"><use href="#i-package"/></svg><span class="status-copy">All Orders</span></button>
+          <button class="order-status" data-label="Pending"><svg class="icon icon-lg"><use href="#i-clock"/></svg><b class="count-dot">2</b><span class="status-copy">Pending</span></button>
+          <button class="order-status" data-label="Shipped"><svg class="icon icon-lg"><use href="#i-truck"/></svg><b class="count-dot">1</b><span class="status-copy">Shipped</span></button>
+          <button class="order-status" data-label="Delivered"><svg class="icon icon-lg"><use href="#i-check"/></svg><span class="status-copy">Delivered</span></button>
+          <button class="order-status" data-label="Returns"><svg class="icon icon-lg"><use href="#i-return"/></svg><span class="status-copy">Returns</span></button>
+        </div>
+      </section>
+
+      <section class="settings-section" aria-labelledby="settingsTitle">
+        <h2 class="section-title" id="settingsTitle">Account <span class="desktop-settings-copy">Settings</span></h2>
+        <div class="settings-grid">
+          <button class="setting-card action" data-action="Personal Information"><svg class="icon"><use href="#i-user"/></svg><span><strong>Personal Information</strong><small>Update your name, email & contact details</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="Saved Addresses"><svg class="icon"><use href="#i-pin"/></svg><span><strong><span class="desktop-settings-copy">Saved </span>Addresses</strong><small>Manage your delivery addresses</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="Payment Methods"><svg class="icon"><use href="#i-card"/></svg><span><strong>Payment Methods</strong><small>View and manage your saved payment methods</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="Security"><svg class="icon"><use href="#i-shield"/></svg><span><strong>Security</strong><small>Change password and manage security preferences</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action desktop-extra-card" data-action="Refer & Earn"><svg class="icon"><use href="#i-gift"/></svg><span><strong>Refer & Earn</strong><small>Invite friends and earn exciting rewards</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action desktop-extra-card" data-action="My Reviews"><svg class="icon"><use href="#i-star"/></svg><span><strong>My Reviews</strong><small>View and manage your product reviews</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action desktop-extra-card" data-action="Help Center"><svg class="icon"><use href="#i-info"/></svg><span><strong>Help Center</strong><small>Get help with orders, refunds and more</small></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+        </div>
+      </section>
+
+      <section class="mobile-more" aria-labelledby="moreTitle">
+        <h2 class="section-title" id="moreTitle">More</h2>
+        <div class="mobile-more-grid">
+          <button class="setting-card action" data-action="My Reviews"><svg class="icon"><use href="#i-star"/></svg><span><strong>My Reviews</strong></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="Refer & Earn"><svg class="icon"><use href="#i-gift"/></svg><span><strong>Refer & Earn</strong></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="Help Center"><svg class="icon"><use href="#i-headset"/></svg><span><strong>Help Center</strong></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          <button class="setting-card action" data-action="About Squirry Food"><svg class="icon"><use href="#i-info"/></svg><span><strong>About Squirry Food</strong></span><svg class="icon"><use href="#i-chevron"/></svg></button>
+        </div>
+      </section>
+
+      <button class="mobile-logout-button action" data-action="Logout">
+        <svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>
+        Logout
+      </button>
+    </main>
+
+    <aside class="right-rail" aria-label="Account summary">
+      <section class="rail-card panel">
+        <div class="rail-heading"><h3>Recent Activity</h3><button class="action" data-action="All activity">View All</button></div>
+        <div class="activity-list">
+          <div class="activity-item"><span class="activity-icon green"><svg class="icon"><use href="#i-check"/></svg></span><div><p class="activity-main">Order #SF12345 Delivered</p><p class="activity-meta">2 May 2025, 10:30 AM</p></div></div>
+          <div class="activity-item"><span class="activity-icon blue"><svg class="icon"><use href="#i-truck"/></svg></span><div><p class="activity-main">Order #SF12344 Shipped</p><p class="activity-meta">1 May 2025, 07:45 PM</p></div></div>
+          <div class="activity-item"><span class="activity-icon green"><svg class="icon"><use href="#i-card"/></svg></span><div><p class="activity-main">Payment of ₹1,299</p><p class="activity-meta">1 May 2025, 07:40 PM</p></div></div>
+          <div class="activity-item"><span class="activity-icon orange"><svg class="icon"><use href="#i-pin"/></svg></span><div><p class="activity-main">Address added</p><p class="activity-meta">30 Apr 2025, 03:20 PM</p></div></div>
+        </div>
+      </section>
+
+      <section class="rail-card panel">
+        <div class="rail-heading"><h3>Saved Addresses</h3><button class="action" data-action="All addresses">View All</button></div>
+        <div class="address-list">
+          <div class="address-item"><svg class="icon"><use href="#i-home"/></svg><div><div class="address-title">Home <span class="default-chip">Default</span></div><p>123, Green Park, Indiranagar,<br>Bangalore, Karnataka - 560038</p></div></div>
+          <div class="address-item"><svg class="icon"><use href="#i-grid"/></svg><div><div class="address-title">Work</div><p>456, Brigade Tech Park,<br>Whitefield, Bangalore - 560066</p></div></div>
+        </div>
+        <button class="outline-button action" data-action="Add new address">＋ Add New Address</button>
+      </section>
+
+      <section class="rail-card panel">
+        <div class="rail-heading"><h3>Preferred Payment</h3><button class="action" data-action="Manage payments">Manage</button></div>
+        <div class="payment-card"><span class="bank-card-icon"></span><div><strong>HDFC Bank Credit Card</strong><small>•••• •••• •••• 4567</small></div><span class="payment-default">Default</span></div>
+        <button class="outline-button action" data-action="Add payment method">＋ Add New Payment Method</button>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <button type="button" data-href="Home.html" data-label="Home"><svg class="icon"><use href="#i-home"/></svg><span>Home</span></button>
+    <button type="button" data-href="categories.html" data-label="Categories"><svg class="icon"><use href="#i-grid"/></svg><span>Categories</span></button>
+    <button type="button" data-href="fruits-vegetables.html" data-label="Cart"><svg class="icon"><use href="#i-cart"/></svg><b class="badge">2</b><span>Cart</span></button>
+    <button type="button" data-label="Orders"><svg class="icon"><use href="#i-clipboard"/></svg><span>Orders</span></button>
+    <button class="active" data-label="Profile"><svg class="icon"><use href="#i-user"/></svg><span>Profile</span></button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="frontend/js/profile.js"></script>
+</body>
+</html>

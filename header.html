@@ -1,0 +1,489 @@
+<!-- Squirry reusable header component -->
+
+<style>
+/* =========================================================
+   SQUIRRY HEADER COMPONENT
+========================================================= */
+
+.main-header {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 95px;
+  margin: 0 auto;
+  padding: 14px 38px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  width: 220px;
+  min-width: 220px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: 62px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.delivery-location {
+  min-width: 230px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.delivery-location > i {
+  color: #ff6500;
+  font-size: 24px;
+}
+
+.delivery-location div {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-location small {
+  color: #555;
+  font-size: 12px;
+}
+
+.delivery-location strong {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.search-box {
+  height: 50px;
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 0 18px;
+  color: #333;
+  font-size: 16px;
+}
+
+.search-box button {
+  width: 58px;
+  flex: 0 0 58px;
+  border: 0;
+  background: #ff6500;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.header-action {
+  min-width: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #111;
+  text-decoration: none;
+}
+
+.header-action > i,
+.cart-icon > i {
+  font-size: 24px;
+}
+
+.header-action span:last-child {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -9px;
+  right: -10px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #ff6500;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Navigation */
+.navigation {
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 55px;
+  margin: 0 auto;
+  padding: 0 38px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.nav-container a {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  white-space: nowrap;
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-container a:hover,
+.nav-container a.active {
+  color: #ff6500;
+}
+
+.nav-container a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ff6500;
+}
+
+.all-categories {
+  min-width: 200px;
+  height: 45px;
+  border: 0;
+  border-radius: 8px;
+  background: #ff6500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Laptop / tablet */
+@media (max-width: 1199px) {
+  .header-container,
+  .nav-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .header-container {
+    gap: 15px;
+  }
+
+  .logo {
+    width: 180px;
+    min-width: 180px;
+    height: 60px;
+  }
+
+  .brand-logo {
+    max-width: 180px;
+    height: 55px;
+  }
+
+  .delivery-location {
+    min-width: 180px;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .nav-container {
+    gap: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-container {
+    flex-wrap: wrap;
+  }
+
+  .delivery-location {
+    margin-left: auto;
+  }
+
+  .search-box {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .logo {
+    width: 160px;
+    min-width: 160px;
+    height: 55px;
+  }
+
+  .brand-logo {
+    max-width: 160px;
+    height: 50px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    width: 138px;
+    min-width: 138px;
+    height: 50px;
+  }
+
+  .brand-logo {
+    max-width: 138px;
+    height: 45px;
+  }
+
+  .delivery-location {
+    display: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  .header-action {
+    min-width: 40px;
+  }
+
+  .header-action > i,
+  .cart-icon > i {
+    font-size: 20px;
+  }
+
+  .header-action span:last-child {
+    font-size: 8px;
+  }
+
+  .search-box {
+    height: 44px;
+  }
+
+  .search-box input {
+    font-size: 13px;
+  }
+
+  .search-box button {
+    width: 48px;
+    flex-basis: 48px;
+  }
+
+  .nav-container {
+    padding: 0 15px;
+    gap: 20px;
+    overflow-x: auto;
+  }
+
+  .nav-container a {
+    height: 48px;
+    font-size: 11px;
+  }
+
+  .all-categories {
+    min-width: 140px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+/* 320px - 760px:
+   Keep Logo + Wishlist + Search
+   Hide Cart + Login / Sign Up */
+@media screen and (min-width: 320px) and (max-width: 760px) {
+  .header-actions {
+    display: flex !important;
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  .header-actions .header-action:first-child {
+    display: flex !important;
+  }
+
+  .header-actions .cart-action,
+  .header-actions .header-action:nth-child(3) {
+    display: none !important;
+  }
+
+  .search-box {
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 112px;
+    min-width: 112px;
+    height: 44px;
+  }
+
+  .brand-logo {
+    max-width: 112px;
+    height: 40px;
+  }
+
+  .header-action {
+    min-width: 35px;
+  }
+
+  .header-action > i,
+  .cart-icon > i {
+    font-size: 18px;
+  }
+}
+</style>
+
+
+<header class="main-header">
+
+    <div class="header-container">
+
+      <!-- Logo -->
+      <a href="Home.html" class="logo" aria-label="Squirry Fruit Home">
+        <img
+          src="frontend/assets/images/logo.jpeg"
+          alt="Squirry Fruit Logo"
+          class="brand-logo"
+        >
+      </a>
+
+
+      <!-- Delivery Location -->
+      <div class="delivery-location">
+        <i class="bi bi-geo-alt-fill"></i>
+
+        <div>
+          <small>Deliver to</small>
+          <strong>12, Green Park, Mumbai</strong>
+        </div>
+
+        <i class="bi bi-chevron-down"></i>
+      </div>
+
+
+      <!-- Search -->
+      <div class="search-box">
+
+        <input
+          type="text"
+          placeholder="Search for products, categories..."
+          id="searchInput"
+        >
+
+        <button type="button" id="searchBtn">
+          <i class="bi bi-search"></i>
+        </button>
+
+      </div>
+
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+
+        <a href="profile.html" class="header-action" aria-label="Open your wishlist and profile">
+          <i class="bi bi-heart"></i>
+          <span>Wishlist</span>
+        </a>
+
+        <a href="fruits-vegetables.html" class="header-action cart-action" aria-label="Continue shopping">
+          <div class="cart-icon">
+            <i class="bi bi-cart3"></i>
+            <span class="cart-count">3</span>
+          </div>
+          <span>Cart</span>
+        </a>
+
+        <a href="profile.html" class="header-action" aria-label="Open your profile">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= NAVIGATION ================= -->
+    <nav class="navigation">
+
+      <div class="nav-container">
+
+        <a href="categories.html" class="all-categories">
+          <i class="bi bi-list"></i>
+          All Categories
+        </a>
+
+        <a href="Home.html" class="active">Home</a>
+        <a href="fruits-vegetables.html">Fruits &amp; Vegetables</a>
+        <a href="#">Grocery & Staples</a>
+        <a href="#">Dairy & Bakery</a>
+        <a href="#">Beverages</a>
+        <a href="#">Personal Care</a>
+        <a href="#">Household</a>
+        <a href="#">Offers</a>
+        <a href="#">Blog</a>
+
+      </div>
+
+    </nav>
+
+  </header>

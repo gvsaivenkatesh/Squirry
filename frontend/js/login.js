@@ -2,6 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const mobileInput = document.getElementById('mobile');
     const passwordInput = document.getElementById('password');
+    const passwordToggle = document.querySelector('.password-toggle');
+
+    if (passwordToggle) {
+        passwordToggle.addEventListener('click', () => {
+            const showPassword = passwordInput.type === 'password';
+            passwordInput.type = showPassword ? 'text' : 'password';
+            passwordToggle.querySelector('span').textContent = showPassword ? '🙈' : '👁';
+            passwordToggle.setAttribute('aria-label', showPassword ? 'Hide password' : 'Show password');
+            passwordToggle.setAttribute('aria-pressed', String(showPassword));
+        });
+    }
 
     if (loginForm) {
         // Format mobile number input
@@ -42,9 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 loginBtn.textContent = originalText;
                 loginBtn.disabled = false;
-                showAlert('Login successful! (Demo)', 'success');
-                // In a real app, redirect to dashboard
-                // window.location.href = '/dashboard';
+                showAlert('Login successful! Opening home page...', 'success');
+                window.setTimeout(() => {
+                    window.location.href = './Home.html';
+                }, 500);
             }, 1500);
         });
     }
